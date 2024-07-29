@@ -2,6 +2,7 @@ import "./App.css"
 import React, { useEffect, useState } from "react"
 import Sidebar from "./sidebar"
 import MyTripsPage from "./MyTripsPage"
+import CreateNewTripPage from "./CreateNewTripPage"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
@@ -20,6 +21,7 @@ function App() {
         <Sidebar>
           <Routes>
             <Route path="/trips" element={<MyTripsPage trips={trips} />} />
+            <Route path="/create_new_trip" element={<CreateNewTripPage />} />
           </Routes>
         </Sidebar>
       </div>
