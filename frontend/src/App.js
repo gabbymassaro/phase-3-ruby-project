@@ -29,7 +29,7 @@ function App() {
           <Routes>
             <Route path="/trips" element={<MyTripsPage trips={trips} />} />
             <Route
-              path="/create_new_trip"
+              path="/locations"
               element={<CreateNewTripPage location={locations} />}
             />
           </Routes>

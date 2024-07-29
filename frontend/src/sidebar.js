@@ -35,11 +35,7 @@ const Sidebar = ({ children }) => {
             <NavLink exact to="/" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink
-              exact
-              to="/create_new_trip"
-              activeClassName="activeClicked"
-            >
+            <NavLink exact to="/locations" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="bi bi-pencil-square">
                 Create New Trip
               </CDBSidebarMenuItem>
