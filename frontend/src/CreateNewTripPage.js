@@ -5,25 +5,41 @@ import Form from "react-bootstrap/Form"
 import Row from "react-bootstrap/Row"
 import "bootstrap-icons/font/bootstrap-icons.css"
 
-function CreateNewTripPage() {
+function CreateNewTripPage({ locations }) {
   return (
     <div className="form-container">
       <Form>
         <Row className="mb-3">
-          <Form.Group as={Col} controlId="formGridEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
+          <Form.Group as={Col} controlId="formGridCountry">
+            <Form.Label>Country</Form.Label>
+            <Form.Select type="country" placeholder="Select Country" />
           </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+          <Form.Group as={Col} controlId="formGridState">
+            <Form.Label>State</Form.Label>
+            <Form.Select type="state" placeholder="State" />
+          </Form.Group>
+          <Form.Group as={Col} controlId="formGridCity">
+            <Form.Label>City</Form.Label>
+            <Form.Select />
+            type="city" placeholder="City"
+            <option value=""></option>
+            {locations.map((location) => (
+              <option
+                type="number"
+                id="sort"
+                value={location.city}
+                key={location.id}
+              >
+                ${location.city}
+              </option>
+            ))}
+            <Form.Select />
           </Form.Group>
         </Row>
 
-        <Form.Group className="mb-3" controlId="formGridAddress1">
-          <Form.Label>Address</Form.Label>
-          <Form.Control placeholder="1234 Main St" />
+        <Form.Group className="mb-3" controlId="formGridTripName">
+          <Form.Label>Enter Trip Name:</Form.Label>
+          <Form.Control placeholder="Camping Trip to Utah" />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formGridAddress2">

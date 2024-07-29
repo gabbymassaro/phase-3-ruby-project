@@ -8,11 +8,18 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 function App() {
   const [trips, setTrips] = useState([])
+  const [locations, setLocations] = useState([])
 
   useEffect(() => {
     fetch("http://localhost:9292/trips")
       .then((r) => r.json())
       .then((trips) => setTrips(trips))
+  }, [])
+
+  useEffect(() => {
+    fetch("http://localhost:9292/locations")
+      .then((r) => r.json())
+      .then((locations) => setLocations(locations))
   }, [])
 
   return (
@@ -21,7 +28,10 @@ function App() {
         <Sidebar>
           <Routes>
             <Route path="/trips" element={<MyTripsPage trips={trips} />} />
-            <Route path="/create_new_trip" element={<CreateNewTripPage />} />
+            <Route
+              path="/create_new_trip"
+              element={<CreateNewTripPage location={locations} />}
+            />
           </Routes>
         </Sidebar>
       </div>
