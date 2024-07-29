@@ -5,7 +5,7 @@ class ApplicationController < Sinatra::Base
 
   # Add your routes here
   get "/trips" do
-    trips = Trip.all
-    trips.to_json
+    trips = Trip.includes(:activity, :location, :lodging)
+    trips.to_json(include: %i[activity location lodging])
   end
 end
