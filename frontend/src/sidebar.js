@@ -10,10 +10,14 @@ import {
 import "bootstrap-icons/font/bootstrap-icons.css"
 import { NavLink } from "react-router-dom"
 
-const Sidebar = () => {
+const Sidebar = ({ children }) => {
   return (
     <div
-      style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
+      style={{
+        display: "flex",
+        height: "100vh",
+        overflow: "scroll initial",
+      }}
     >
       <CDBSidebar textColor="#fff" backgroundColor="#333">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
@@ -40,7 +44,7 @@ const Sidebar = () => {
                 Create New Trip
               </CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/my_travels" activeClassName="activeClicked">
+            <NavLink exact to="/trips" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="bi bi-airplane-fill">
                 My Travels
               </CDBSidebarMenuItem>
@@ -66,6 +70,7 @@ const Sidebar = () => {
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>
+      <div style={{ flex: 1 }}>{children}</div>
     </div>
   )
 }
