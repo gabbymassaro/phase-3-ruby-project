@@ -22,7 +22,7 @@ const Sidebar = () => {
             className="text-decoration-none"
             style={{ color: "inherit" }}
           >
-            Travel Planner
+            Travel Planner ✈️
           </a>
         </CDBSidebarHeader>
 
