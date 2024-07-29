@@ -30,7 +30,7 @@ function App() {
             <Route path="/trips" element={<MyTripsPage trips={trips} />} />
             <Route
               path="/locations"
-              element={<CreateNewTripPage location={locations} />}
+              element={<CreateNewTripPage locations={locations} />}
             />
           </Routes>
         </Sidebar>

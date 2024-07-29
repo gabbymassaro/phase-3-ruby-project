@@ -12,28 +12,33 @@ function CreateNewTripPage({ locations }) {
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridCountry">
             <Form.Label>Country</Form.Label>
-            <Form.Select type="country" placeholder="Select Country" />
+            <Form.Select>
+              <option value="">US</option>
+            </Form.Select>
           </Form.Group>
+
           <Form.Group as={Col} controlId="formGridState">
             <Form.Label>State</Form.Label>
-            <Form.Select type="state" placeholder="State" />
+            <Form.Select>
+              <option value="">State</option>
+              {locations.map((location) => (
+                <option value={location.state} key={location.id}>
+                  {location.state}
+                </option>
+              ))}
+            </Form.Select>
           </Form.Group>
+
           <Form.Group as={Col} controlId="formGridCity">
             <Form.Label>City</Form.Label>
-            <Form.Select />
-            type="city" placeholder="City"
-            <option value=""></option>
-            {locations.map((location) => (
-              <option
-                type="number"
-                id="sort"
-                value={location.city}
-                key={location.id}
-              >
-                ${location.city}
-              </option>
-            ))}
-            <Form.Select />
+            <Form.Select>
+              <option value="">City</option>
+              {locations.map((location) => (
+                <option value={location.city} key={location.id}>
+                  {location.city}
+                </option>
+              ))}
+            </Form.Select>
           </Form.Group>
         </Row>
 
