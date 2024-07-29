@@ -10,7 +10,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/locations" do
-    locations = Trip.all
+    locations = Location.all
     locations.to_json
   end
 end
