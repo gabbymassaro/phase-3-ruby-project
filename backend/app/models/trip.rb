@@ -1,5 +1,5 @@
 class Trip < ActiveRecord::Base
-  has_many :activities
-  has_many :locations
-  has_many :lodgings
+  belongs_to :activity
+  belongs_to :location
+  belongs_to :lodging
 end
