@@ -2,6 +2,7 @@ import "./App.css"
 import React, { useEffect, useState } from "react"
 import Sidebar from "./sidebar"
 import MyTripsPage from "./MyTripsPage"
+import ActivitiesPage from "./ActivitiesPage"
 import CreateNewTripPage from "./CreateNewTripPage"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
@@ -69,6 +70,7 @@ function App() {
                 />
               }
             />
+            <Route path="/activities" element={<ActivitiesPage />} />
           </Routes>
         </Sidebar>
       </div>
