@@ -4,8 +4,14 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
   get "/trips" do
-    trips = Trip.includes(:activity, :location, :lodging)
-    trips.to_json(include: %i[activity location lodging])
+    # trips = Trip.includes(:activity, :location, :lodging)
+    # trips.to_json(include: %i[activity location lodging])
+    trips = Trip.includes(:activities, :location, :lodgings).all
+    trips.to_json(include: {
+                    activities: { only: %i[id name price date] },
+                    location: { only: %i[id country state city] },
+                    lodgings: { only: %i[id lodging_type name price_per_night check_in check_out] },
+                  })
   end
 
   get "/locations" do
