@@ -22,6 +22,10 @@ function App() {
     setTrips([...trips, trip])
   }
 
+  function onEditTrip(trip) {
+    setTrips([...trips, trip])
+  }
+
   useEffect(() => {
     fetch("http://localhost:9292/trips")
       .then((r) => r.json())
@@ -41,7 +45,13 @@ function App() {
           <Routes>
             <Route
               path="/trips"
-              element={<MyTripsPage trips={trips} locations={locations} />}
+              element={
+                <MyTripsPage
+                  trips={trips}
+                  locations={locations}
+                  onEditTrip={onEditTrip}
+                />
+              }
             />
             <Route
               path="/locations"

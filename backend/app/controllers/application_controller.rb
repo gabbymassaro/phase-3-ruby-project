@@ -47,4 +47,19 @@ class ApplicationController < Sinatra::Base
                    lodgings: { only: %i[id lodging_type name price_per_night check_in check_out] },
                  })
   end
+
+  patch "/trips/:id" do
+    trips = Trip.find(params[:id])
+    trips.update(
+      title: params[:title],
+      start_date: params[:start_date],
+      end_date: params[:end_date],
+      location_id: params[:location_id]
+    )
+    trips.to_json(include: {
+                    location: { only: %i[id country state city] },
+                    activities: { only: %i[id name price date] },
+                    lodgings: { only: %i[id lodging_type name price_per_night check_in check_out] },
+                  })
+  end
 end

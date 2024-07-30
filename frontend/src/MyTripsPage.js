@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import TripForm from "./TripForm"
 
-function MyTripsPage({ trips, locations }) {
+function MyTripsPage({ trips, locations, onEditTrip }) {
   const [formData, setFormData] = useState({
     location_id: "",
     title: "",
@@ -15,10 +15,38 @@ function MyTripsPage({ trips, locations }) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+
+    const submitData = {
+      ...formData,
+      start_date: formData.start_date
+        ? formData.start_date.toISOString().split("T")[0]
+        : "",
+      end_date: formData.end_date
+        ? formData.end_date.toISOString().split("T")[0]
+        : "",
+    }
+
+    fetch(`http://localhost:9292/trips/${currentTripId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(submitData),
+    })
+      .then((response) => response.json())
+      .then((trip) => {
+        onEditTrip(trip)
+      })
+      .catch((error) => {
+        console.error("Error submitting trip:", error)
+      })
   }
 
   const handleDateChange = (date, field) => {
-    setFormData((prevData) => ({ ...prevData, [field]: date }))
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: date,
+    }))
   }
 
   const handleChange = (event) => {
@@ -37,7 +65,6 @@ function MyTripsPage({ trips, locations }) {
     setCurrentTripId(trip.id)
   }
 
-  console.log(currentTripId)
   return (
     <>
       <div className="tripstable">
