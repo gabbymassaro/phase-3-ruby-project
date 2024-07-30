@@ -64,7 +64,7 @@ function CreateNewTripPage({ locations, onAddNewTrip }) {
             <Form.Label>Location</Form.Label>
             <Form.Select
               name="location_id"
-              value={formData.location_id || ""}
+              value={formData.location_id ?? ""}
               onChange={handleChange}
             >
               <option value="">Location</option>
@@ -82,7 +82,7 @@ function CreateNewTripPage({ locations, onAddNewTrip }) {
           <Form.Control
             placeholder="Camping Trip to Utah"
             name="title"
-            value={formData.title}
+            value={formData.title ?? ""}
             onChange={handleChange}
           />
         </Form.Group>
