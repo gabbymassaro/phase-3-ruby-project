@@ -14,6 +14,11 @@ class ApplicationController < Sinatra::Base
                   })
   end
 
+  get "/trips/:id" do
+    trips = Trip.find(params[:id])
+    trips.to_json
+  end
+
   get "/locations" do
     locations = Location.all
     locations.to_json

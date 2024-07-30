@@ -3,6 +3,13 @@ import Table from "react-bootstrap/Table"
 import "bootstrap-icons/font/bootstrap-icons.css"
 
 function MyTripsPage({ trips }) {
+  const handleOnClick = (id) => {
+    console.log(id)
+    fetch(`http://localhost:9292/trips/${id}`)
+      .then((r) => r.json())
+      .then((trips) => console.log(trips))
+  }
+
   return (
     <div className="tripstable">
       <Table striped bordered hover size="sm">
@@ -42,7 +49,12 @@ function MyTripsPage({ trips }) {
                 ))}
               </td>
               <td>
-                <button className="btn btn-primary">Update</button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => handleOnClick(trip.id)}
+                >
+                  Update
+                </button>
               </td>
               <td>
                 <button className="btn btn-danger">Remove</button>
