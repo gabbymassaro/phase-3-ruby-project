@@ -5,12 +5,14 @@ import MyTripsPage from "./MyTripsPage"
 import CreateNewTripPage from "./CreateNewTripPage"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+
 const initialValue = {
   title: null,
   start_date: null,
   end_date: null,
   location_id: null,
 }
+
 function App() {
   const [trips, setTrips] = useState([])
   const [locations, setLocations] = useState([])
@@ -37,7 +39,10 @@ function App() {
       <div className="App">
         <Sidebar>
           <Routes>
-            <Route path="/trips" element={<MyTripsPage trips={trips} />} />
+            <Route
+              path="/trips"
+              element={<MyTripsPage trips={trips} locations={locations} />}
+            />
             <Route
               path="/locations"
               element={

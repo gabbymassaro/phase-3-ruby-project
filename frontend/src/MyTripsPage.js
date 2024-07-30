@@ -2,17 +2,16 @@ import React, { useState } from "react"
 import Table from "react-bootstrap/Table"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import TripForm from "./TripForm"
-function MyTripsPage({ trips }) {
+
+function MyTripsPage({ trips, locations }) {
   const [formData, setFormData] = useState({
     location_id: "",
     title: "",
     start_date: null,
     end_date: null,
   })
-
-  const locations = [
-    { id: 1, country: "USA", state: "CA", city: "San Francisco" },
-  ]
+  const [editMode, setEditMode] = useState(false)
+  const [currentTripId, setCurrentTripId] = useState(null)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -27,6 +26,18 @@ function MyTripsPage({ trips }) {
     setFormData((prevData) => ({ ...prevData, [name]: value }))
   }
 
+  const handleEdit = (trip) => {
+    setFormData({
+      location_id: trip.location_id,
+      title: trip.title,
+      start_date: trip.start_date,
+      end_date: trip.end_date,
+    })
+    setEditMode(true)
+    setCurrentTripId(trip.id)
+  }
+
+  console.log(currentTripId)
   return (
     <>
       <div className="tripstable">
@@ -67,7 +78,12 @@ function MyTripsPage({ trips }) {
                   ))}
                 </td>
                 <td>
-                  <button className="btn btn-primary">Update</button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => handleEdit(trip)}
+                  >
+                    Update
+                  </button>
                 </td>
                 <td>
                   <button className="btn btn-danger">Remove</button>
@@ -83,6 +99,7 @@ function MyTripsPage({ trips }) {
         handleDateChange={handleDateChange}
         handleChange={handleChange}
         formData={formData}
+        exitMode={editMode}
       />
     </>
   )
