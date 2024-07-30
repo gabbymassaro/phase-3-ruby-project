@@ -8,7 +8,7 @@ import {
   CDBSidebarMenuItem,
 } from "cdbreact"
 import "bootstrap-icons/font/bootstrap-icons.css"
-import { NavLink } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const Sidebar = ({ children }) => {
   return (
@@ -32,27 +32,21 @@ const Sidebar = ({ children }) => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/locations" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="bi bi-pencil-square">
-                Create New Trip
-              </CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/trips" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="bi bi-airplane-fill">
-                My Travels
-              </CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/calendar" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="bi bi-calendar-date-fill">
-                Calendar
-              </CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/stats" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="chart-line">Stats</CDBSidebarMenuItem>
-            </NavLink>
+            <Link to="/">
+              <CDBSidebarMenuItem>Dashboard</CDBSidebarMenuItem>
+            </Link>
+            <Link to="/locations">
+              <CDBSidebarMenuItem>Create New Trip</CDBSidebarMenuItem>
+            </Link>
+            <Link to="/trips">
+              <CDBSidebarMenuItem>My Travels</CDBSidebarMenuItem>
+            </Link>
+            <Link to="/calendar">
+              <CDBSidebarMenuItem>Calendar</CDBSidebarMenuItem>
+            </Link>
+            <Link to="/stats">
+              <CDBSidebarMenuItem>Stats</CDBSidebarMenuItem>
+            </Link>
           </CDBSidebarMenu>
         </CDBSidebarContent>
 

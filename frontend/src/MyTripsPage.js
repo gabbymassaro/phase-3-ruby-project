@@ -11,7 +11,7 @@ function MyTripsPage({ trips }) {
             <th>Start Date</th>
             <th>End Date</th>
             <th>City</th>
-            <th>Activity</th>
+            <th>Activities</th>
             <th>Lodging</th>
           </tr>
         </thead>
@@ -22,8 +22,22 @@ function MyTripsPage({ trips }) {
               <td>{trip.start_date}</td>
               <td>{trip.end_date}</td>
               <td>{trip.location.city}</td>
-              <td>{trip.activity.name}</td>
-              <td>{trip.lodging.name}</td>
+              <td>
+                {trip.activities.map((activity, idx) => (
+                  <span key={idx}>
+                    {activity.name}
+                    {idx < trip.activities.length - 1 ? ", " : ""}
+                  </span>
+                ))}
+              </td>
+              <td>
+                {trip.lodgings.map((lodging, idx) => (
+                  <span key={idx}>
+                    {lodging.name}
+                    {idx < trip.lodgings.length - 1 ? ", " : ""}
+                  </span>
+                ))}
+              </td>
             </tr>
           ))}
         </tbody>

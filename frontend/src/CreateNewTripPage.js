@@ -12,11 +12,9 @@ const initialValue = {
   start_date: null,
   end_date: null,
   location_id: null,
-  activity_id: null,
-  lodging_id: null,
 }
 
-function CreateNewTripPage({ locations, activities, lodgings, onAddNewTrip }) {
+function CreateNewTripPage({ locations, onAddNewTrip }) {
   const [formData, setFormData] = useState(initialValue)
 
   const handleChange = ({ target: { name, value } }) => {
@@ -56,6 +54,8 @@ function CreateNewTripPage({ locations, activities, lodgings, onAddNewTrip }) {
       })
   }
 
+  console.log(formData)
+
   return (
     <div className="form-container">
       <Form onSubmit={handleSubmit}>
@@ -64,45 +64,13 @@ function CreateNewTripPage({ locations, activities, lodgings, onAddNewTrip }) {
             <Form.Label>Location</Form.Label>
             <Form.Select
               name="location_id"
-              value={formData.location_id || ""}
+              value={formData.location_id ?? ""}
               onChange={handleChange}
             >
               <option value="">Location</option>
               {locations.map((location, index) => (
                 <option value={location.id} key={index}>
-                  {location.id}
-                </option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridLodging">
-            <Form.Label>Lodging</Form.Label>
-            <Form.Select
-              name="lodging_id"
-              value={formData.lodging_id || ""}
-              onChange={handleChange}
-            >
-              <option value="">Lodging</option>
-              {lodgings.map((lodging, index) => (
-                <option value={lodging.id} key={index}>
-                  {lodging.id}
-                </option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridActivity">
-            <Form.Label>Activities</Form.Label>
-            <Form.Select
-              name="activity_id"
-              value={formData.activity_id || ""}
-              onChange={handleChange}
-            >
-              <option value="">Activity</option>
-              {activities.map((activity, index) => (
-                <option value={activity.id} key={index}>
-                  {activity.id}
+                  {`${location.country} - ${location.state} - ${location.city}`}
                 </option>
               ))}
             </Form.Select>
@@ -114,7 +82,7 @@ function CreateNewTripPage({ locations, activities, lodgings, onAddNewTrip }) {
           <Form.Control
             placeholder="Camping Trip to Utah"
             name="title"
-            value={formData.title}
+            value={formData.title ?? ""}
             onChange={handleChange}
           />
         </Form.Group>

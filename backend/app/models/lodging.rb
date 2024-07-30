@@ -1,3 +1,3 @@
 class Lodging < ActiveRecord::Base
-  has_many :trips
+  belongs_to :trip
 end

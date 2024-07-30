@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_29_150539) do
+ActiveRecord::Schema.define(version: 2024_07_30_130046) do
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 2024_07_29_150539) do
     t.date "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "trip_id"
+    t.index ["trip_id"], name: "index_activities_on_trip_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -36,6 +38,8 @@ ActiveRecord::Schema.define(version: 2024_07_29_150539) do
     t.datetime "check_out"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "trip_id"
+    t.index ["trip_id"], name: "index_lodgings_on_trip_id"
   end
 
   create_table "trips", force: :cascade do |t|
@@ -43,16 +47,12 @@ ActiveRecord::Schema.define(version: 2024_07_29_150539) do
     t.date "start_date"
     t.date "end_date"
     t.integer "location_id"
-    t.integer "activity_id"
-    t.integer "lodging_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["activity_id"], name: "index_trips_on_activity_id"
     t.index ["location_id"], name: "index_trips_on_location_id"
-    t.index ["lodging_id"], name: "index_trips_on_lodging_id"
   end
 
-  add_foreign_key "trips", "activities"
+  add_foreign_key "activities", "trips"
+  add_foreign_key "lodgings", "trips"
   add_foreign_key "trips", "locations"
-  add_foreign_key "trips", "lodgings"
 end
