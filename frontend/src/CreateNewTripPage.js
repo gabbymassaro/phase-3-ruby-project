@@ -8,15 +8,15 @@ import "react-datepicker/dist/react-datepicker.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 
 const initialValue = {
-  title: "",
-  start_date: "",
-  end_date: "",
+  title: null,
+  start_date: null,
+  end_date: null,
   location_id: null,
   activity_id: null,
   lodging_id: null,
 }
 
-function CreateNewTripPage({ locations }) {
+function CreateNewTripPage({ locations, activities, lodgings, onAddNewTrip }) {
   const [formData, setFormData] = useState(initialValue)
 
   const handleChange = ({ target: { name, value } }) => {
@@ -32,11 +32,15 @@ function CreateNewTripPage({ locations }) {
 
     const submitData = {
       ...formData,
-      start_date: formData.start_date ? formData.start_date.toISOString() : "",
-      end_date: formData.end_date ? formData.end_date.toISOString() : "",
+      start_date: formData.start_date
+        ? formData.start_date.toISOString().split("T")[0]
+        : "",
+      end_date: formData.end_date
+        ? formData.end_date.toISOString().split("T")[0]
+        : "",
     }
 
-    fetch("http://localhost:3000/trips", {
+    fetch("http://localhost:9292/trips", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +49,10 @@ function CreateNewTripPage({ locations }) {
     })
       .then((response) => response.json())
       .then((trip) => {
-        console.log(trip)
+        onAddNewTrip(trip)
+      })
+      .catch((error) => {
+        console.error("Error submitting trip:", error)
       })
   }
 
@@ -53,32 +60,49 @@ function CreateNewTripPage({ locations }) {
     <div className="form-container">
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
-          <Form.Group as={Col} controlId="formGridCountry">
-            <Form.Label>Country</Form.Label>
-            <Form.Select>
-              <option value="">US</option>
-            </Form.Select>
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>State</Form.Label>
-            <Form.Select>
-              <option value="">State</option>
-              {locations.map((location) => (
-                <option value={location.state} key={location.id}>
-                  {location.state}
+          <Form.Group as={Col} controlId="formGridLocation">
+            <Form.Label>Location</Form.Label>
+            <Form.Select
+              name="location_id"
+              value={formData.location_id || ""}
+              onChange={handleChange}
+            >
+              <option value="">Location</option>
+              {locations.map((location, index) => (
+                <option value={location.id} key={index}>
+                  {location.id}
                 </option>
               ))}
             </Form.Select>
           </Form.Group>
 
-          <Form.Group as={Col} controlId="formGridCity">
-            <Form.Label>City</Form.Label>
-            <Form.Select>
-              <option value="">City</option>
-              {locations.map((location) => (
-                <option value={location.city} key={location.id}>
-                  {location.city}
+          <Form.Group as={Col} controlId="formGridLodging">
+            <Form.Label>Lodging</Form.Label>
+            <Form.Select
+              name="lodging_id"
+              value={formData.lodging_id || ""}
+              onChange={handleChange}
+            >
+              <option value="">Lodging</option>
+              {lodgings.map((lodging, index) => (
+                <option value={lodging.id} key={index}>
+                  {lodging.id}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group as={Col} controlId="formGridActivity">
+            <Form.Label>Activities</Form.Label>
+            <Form.Select
+              name="activity_id"
+              value={formData.activity_id || ""}
+              onChange={handleChange}
+            >
+              <option value="">Activity</option>
+              {activities.map((activity, index) => (
+                <option value={activity.id} key={index}>
+                  {activity.id}
                 </option>
               ))}
             </Form.Select>

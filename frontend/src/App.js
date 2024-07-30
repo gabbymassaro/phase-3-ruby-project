@@ -9,6 +9,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 function App() {
   const [trips, setTrips] = useState([])
   const [locations, setLocations] = useState([])
+  const [activities, setActivities] = useState([])
+  const [lodgings, setLodgings] = useState([])
+
+  function onAddNewTrip(trip) {
+    setTrips([...trips, trip])
+  }
 
   useEffect(() => {
     fetch("http://localhost:9292/trips")
@@ -22,6 +28,18 @@ function App() {
       .then((locations) => setLocations(locations))
   }, [])
 
+  useEffect(() => {
+    fetch("http://localhost:9292/activities")
+      .then((r) => r.json())
+      .then((activities) => setActivities(activities))
+  }, [])
+
+  useEffect(() => {
+    fetch("http://localhost:9292/lodgings")
+      .then((r) => r.json())
+      .then((lodgings) => setLodgings(lodgings))
+  }, [])
+
   return (
     <Router>
       <div className="App">
@@ -30,7 +48,14 @@ function App() {
             <Route path="/trips" element={<MyTripsPage trips={trips} />} />
             <Route
               path="/locations"
-              element={<CreateNewTripPage locations={locations} />}
+              element={
+                <CreateNewTripPage
+                  locations={locations}
+                  activities={activities}
+                  lodgings={lodgings}
+                  onAddNewTrip={onAddNewTrip}
+                />
+              }
             />
           </Routes>
         </Sidebar>
