@@ -14,6 +14,11 @@ class ApplicationController < Sinatra::Base
                   })
   end
 
+  get "/trips/:id" do
+    trips = Trip.find(params[:id])
+    trips.to_json
+  end
+
   get "/locations" do
     locations = Location.all
     locations.to_json
@@ -41,5 +46,26 @@ class ApplicationController < Sinatra::Base
                    activities: { only: %i[id name price date] },
                    lodgings: { only: %i[id lodging_type name price_per_night check_in check_out] },
                  })
+  end
+
+  patch "/trips/:id" do
+    trips = Trip.find(params[:id])
+    trips.update(
+      title: params[:title],
+      start_date: params[:start_date],
+      end_date: params[:end_date],
+      location_id: params[:location_id]
+    )
+    trips.to_json(include: {
+                    location: { only: %i[id country state city] },
+                    activities: { only: %i[id name price date] },
+                    lodgings: { only: %i[id lodging_type name price_per_night check_in check_out] },
+                  })
+  end
+
+  delete "/trips/:id" do
+    trips = Trip.find(params[:id])
+    trips.destroy
+    trips.to_json
   end
 end
