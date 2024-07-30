@@ -62,4 +62,10 @@ class ApplicationController < Sinatra::Base
                     lodgings: { only: %i[id lodging_type name price_per_night check_in check_out] },
                   })
   end
+
+  delete "/trips/:id" do
+    trips = Trip.find(params[:id])
+    trips.destroy
+    trips.to_json
+  end
 end

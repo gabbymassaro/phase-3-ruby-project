@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import TripForm from "./TripForm"
 
-function MyTripsPage({ trips, locations, onEditTrip }) {
+function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
   const [formData, setFormData] = useState({
     location_id: "",
     title: "",
@@ -65,6 +65,18 @@ function MyTripsPage({ trips, locations, onEditTrip }) {
     setCurrentTripId(trip.id)
   }
 
+  const handleDelete = (id) => {
+    console.log(id)
+
+    fetch(`http://localhost:9292/trips/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then(() => {
+        onDeleteTrip(id)
+      })
+  }
+
   return (
     <>
       <div className="tripstable">
@@ -113,7 +125,12 @@ function MyTripsPage({ trips, locations, onEditTrip }) {
                   </button>
                 </td>
                 <td>
-                  <button className="btn btn-danger">Remove</button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleDelete(trip.id)}
+                  >
+                    Remove
+                  </button>
                 </td>
               </tr>
             ))}

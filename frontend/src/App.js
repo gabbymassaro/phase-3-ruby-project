@@ -26,6 +26,10 @@ function App() {
     setTrips([...trips, trip])
   }
 
+  function onDeleteTrip(id) {
+    setTrips(trips.filter((trip) => trip.id !== id))
+  }
+
   useEffect(() => {
     fetch("http://localhost:9292/trips")
       .then((r) => r.json())
@@ -50,6 +54,7 @@ function App() {
                   trips={trips}
                   locations={locations}
                   onEditTrip={onEditTrip}
+                  onDeleteTrip={onDeleteTrip}
                 />
               }
             />
