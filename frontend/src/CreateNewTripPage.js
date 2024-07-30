@@ -1,15 +1,7 @@
-import React, { useState } from "react"
+import React from "react"
 import TripForm from "./TripForm"
-const initialValue = {
-  title: null,
-  start_date: null,
-  end_date: null,
-  location_id: null,
-}
 
-function CreateNewTripPage({ locations, onAddNewTrip }) {
-  const [formData, setFormData] = useState(initialValue)
-
+function CreateNewTripPage({ locations, onAddNewTrip, formData, setFormData }) {
   const handleChange = ({ target: { name, value } }) => {
     setFormData({ ...formData, [name]: value })
   }

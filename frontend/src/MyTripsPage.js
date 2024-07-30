@@ -1,7 +1,32 @@
-import React from "react"
+import React, { useState } from "react"
 import Table from "react-bootstrap/Table"
 import "bootstrap-icons/font/bootstrap-icons.css"
+import TripForm from "./TripForm"
 function MyTripsPage({ trips }) {
+  const [formData, setFormData] = useState({
+    location_id: "",
+    title: "",
+    start_date: null,
+    end_date: null,
+  })
+
+  const locations = [
+    { id: 1, country: "USA", state: "CA", city: "San Francisco" },
+  ]
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+  }
+
+  const handleDateChange = (date, field) => {
+    setFormData((prevData) => ({ ...prevData, [field]: date }))
+  }
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setFormData((prevData) => ({ ...prevData, [name]: value }))
+  }
+
   return (
     <>
       <div className="tripstable">
@@ -52,6 +77,13 @@ function MyTripsPage({ trips }) {
           </tbody>
         </Table>
       </div>
+      <TripForm
+        locations={locations}
+        handleSubmit={handleSubmit}
+        handleDateChange={handleDateChange}
+        handleChange={handleChange}
+        formData={formData}
+      />
     </>
   )
 }
