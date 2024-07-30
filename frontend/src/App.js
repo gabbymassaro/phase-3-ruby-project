@@ -9,8 +9,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 function App() {
   const [trips, setTrips] = useState([])
   const [locations, setLocations] = useState([])
-  const [activities, setActivities] = useState([])
-  const [lodgings, setLodgings] = useState([])
+  // const [activities, setActivities] = useState([])
+  // const [lodgings, setLodgings] = useState([])
 
   function onAddNewTrip(trip) {
     setTrips([...trips, trip])
@@ -28,17 +28,17 @@ function App() {
       .then((locations) => setLocations(locations))
   }, [])
 
-  useEffect(() => {
-    fetch("http://localhost:9292/activities")
-      .then((r) => r.json())
-      .then((activities) => setActivities(activities))
-  }, [])
+  // useEffect(() => {
+  //   fetch("http://localhost:9292/activities")
+  //     .then((r) => r.json())
+  //     .then((activities) => setActivities(activities))
+  // }, [])
 
-  useEffect(() => {
-    fetch("http://localhost:9292/lodgings")
-      .then((r) => r.json())
-      .then((lodgings) => setLodgings(lodgings))
-  }, [])
+  // useEffect(() => {
+  //   fetch("http://localhost:9292/lodgings")
+  //     .then((r) => r.json())
+  //     .then((lodgings) => setLodgings(lodgings))
+  // }, [])
 
   return (
     <Router>
@@ -51,8 +51,6 @@ function App() {
               element={
                 <CreateNewTripPage
                   locations={locations}
-                  activities={activities}
-                  lodgings={lodgings}
                   onAddNewTrip={onAddNewTrip}
                 />
               }

@@ -34,9 +34,7 @@ class ApplicationController < Sinatra::Base
       title: params[:title],
       start_date: params[:start_date],
       end_date: params[:end_date],
-      location_id: params[:location_id],
-      activity_id: params[:activity_id],
-      lodging_id: params[:lodging_id]
+      location_id: params[:location_id]
     )
     trips.to_json
   end
