@@ -1,18 +1,21 @@
 import React from "react"
+import Table from "react-bootstrap/Table"
 import "bootstrap-icons/font/bootstrap-icons.css"
 
 function MyTripsPage({ trips }) {
   return (
     <div className="tripstable">
-      <table>
+      <Table striped bordered hover size="sm">
         <thead>
           <tr>
-            <th>Title</th>
+            <th>Trip</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>City</th>
             <th>Activities</th>
             <th>Lodging</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -38,10 +41,16 @@ function MyTripsPage({ trips }) {
                   </span>
                 ))}
               </td>
+              <td>
+                <button className="btn btn-primary">Update</button>
+              </td>
+              <td>
+                <button className="btn btn-danger">Remove</button>
+              </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   )
 }

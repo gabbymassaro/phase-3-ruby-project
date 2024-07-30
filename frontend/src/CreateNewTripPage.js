@@ -54,8 +54,6 @@ function CreateNewTripPage({ locations, onAddNewTrip }) {
       })
   }
 
-  console.log(formData)
-
   return (
     <div className="form-container">
       <Form onSubmit={handleSubmit}>
