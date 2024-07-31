@@ -1,6 +1,7 @@
 import "./App.css"
 import React, { useEffect, useState } from "react"
 import Sidebar from "./Sidebar"
+import Calendar from "./Calendar"
 import MyTripsPage from "./MyTripsPage"
 import ActivitiesPage from "./ActivitiesPage"
 import CreateNewTripPage from "./CreateNewTripPage"
@@ -107,6 +108,7 @@ function App() {
                 />
               }
             />
+            <Route path="/calendar" element={<Calendar />} />
           </Routes>
         </Sidebar>
       </div>

@@ -4,14 +4,9 @@ import { toDate } from "date-fns-tz"
 import moment from "moment"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import TripForm from "./TripForm"
+import DeleteTrip from "./DeleteTrip"
 
 function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
-  /* I have been trying to fix a bug, this doesn't fix it but it's the most recent thing I've tried.
-     The bug: if I consolelog my formData, the start_date and end_date are correct. The datepicker
-     however, will display the incorrect start_date and end_date. The datepicker is displaying
-     one day behind the respective dates. It's mostly described online as a timezone issue but I haven't
-     been able to solve it. At the moment, it's just a visual problem in this app, not a data issue.
-  */
   const dateTimeRegex =
     /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9](:([0-5][0-9]|60))?(\.[0-9]{1,9})?)?)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)?)?)?$/
 
@@ -32,7 +27,6 @@ function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
       }))
     }
   }
-  /* end of buggy code */
 
   const [formData, setFormData] = useState({
     location_id: "",
@@ -82,16 +76,6 @@ function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
       })
   }
 
-  const handleDelete = (id) => {
-    fetch(`http://localhost:9292/trips/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then(() => {
-        onDeleteTrip(id)
-      })
-  }
-  console.log(formData)
   return (
     <>
       <div className="tripstable">
@@ -146,12 +130,7 @@ function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
                   </button>
                 </td>
                 <td>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleDelete(trip.id)}
-                  >
-                    Remove
-                  </button>
+                  <DeleteTrip onDeleteTrip={onDeleteTrip} trip={trip} />
                 </td>
               </tr>
             ))}
