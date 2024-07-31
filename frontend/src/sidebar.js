@@ -41,6 +41,9 @@ const Sidebar = ({ children }) => {
             <Link to="/trips">
               <CDBSidebarMenuItem>My Travels</CDBSidebarMenuItem>
             </Link>
+            <Link to="/activities">
+              <CDBSidebarMenuItem>Activities</CDBSidebarMenuItem>
+            </Link>
             <Link to="/calendar">
               <CDBSidebarMenuItem>Calendar</CDBSidebarMenuItem>
             </Link>
