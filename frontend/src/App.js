@@ -1,6 +1,6 @@
 import "./App.css"
 import React, { useEffect, useState } from "react"
-import Sidebar from "./sidebar"
+import Sidebar from "./Sidebar"
 import MyTripsPage from "./MyTripsPage"
 import ActivitiesPage from "./ActivitiesPage"
 import CreateNewTripPage from "./CreateNewTripPage"
@@ -17,6 +17,7 @@ const initialValue = {
 function App() {
   const [trips, setTrips] = useState([])
   const [locations, setLocations] = useState([])
+  const [activities, setActivities] = useState([])
   const [formData, setFormData] = useState(initialValue)
 
   function onAddNewTrip(trip) {
@@ -41,6 +42,12 @@ function App() {
     fetch("http://localhost:9292/locations")
       .then((r) => r.json())
       .then((locations) => setLocations(locations))
+  }, [])
+
+  useEffect(() => {
+    fetch("http://localhost:9292/activities")
+      .then((r) => r.json())
+      .then((activities) => setActivities(activities))
   }, [])
 
   return (
@@ -70,7 +77,10 @@ function App() {
                 />
               }
             />
-            <Route path="/activities" element={<ActivitiesPage />} />
+            <Route
+              path="/activities"
+              element={<ActivitiesPage activities={activities} />}
+            />
           </Routes>
         </Sidebar>
       </div>
