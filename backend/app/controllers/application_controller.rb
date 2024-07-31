@@ -4,28 +4,15 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
   get "/trips" do
-    trips = Trip.includes(:activities, :location, :lodgings).all
-    trips.to_json(include: %i[activities location lodgings])
+    trips = Trip.order_by_start_date.includes(:activities, :location, :lodgings).all
+    trips.to_json(include: %i[activities location lodgings],
+                  methods: %i[total_activities_cost length_of_trip
+                              total_cost_of_stay])
   end
 
   get "/trips/:id" do
-    trips = Trip.find(params[:id])
-    trips.to_json
-  end
-
-  get "/locations" do
-    locations = Location.all
-    locations.to_json
-  end
-
-  get "/activities" do
-    activities = Activity.includes(:trip).all
-    activities.to_json(include: %i[trip])
-  end
-
-  get "/lodgings" do
-    lodgings = Lodging.all
-    lodgings.to_json
+    trip = Trip.find(params[:id])
+    trip.to_json(include: %i[activities location lodgings])
   end
 
   post "/trips" do
@@ -36,16 +23,6 @@ class ApplicationController < Sinatra::Base
       location_id: params[:location_id]
     )
     trip.to_json(include: %i[activities location lodgings])
-  end
-
-  post "/activities" do
-    activity = Activity.create(
-      name: params[:name],
-      price: params[:price],
-      date: params[:date],
-      trip_id: params[:trip_id]
-    )
-    activity.to_json(include: %i[trip])
   end
 
   patch "/trips/:id" do
@@ -63,5 +40,30 @@ class ApplicationController < Sinatra::Base
     trips = Trip.find(params[:id])
     trips.destroy
     trips.to_json
+  end
+
+  get "/activities" do
+    activities = Activity.order_by_trip_title
+    activities.to_json(include: %i[trip])
+  end
+
+  post "/activities" do
+    activity = Activity.create(
+      name: params[:name],
+      price: params[:price],
+      date: params[:date],
+      trip_id: params[:trip_id]
+    )
+    activity.to_json(include: %i[trip])
+  end
+
+  get "/lodgings" do
+    lodgings = Lodging.all
+    lodgings.to_json
+  end
+
+  get "/locations" do
+    locations = Location.all
+    locations.to_json
   end
 end

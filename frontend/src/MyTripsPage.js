@@ -91,7 +91,7 @@ function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
         onDeleteTrip(id)
       })
   }
-
+  console.log(formData)
   return (
     <>
       <div className="tripstable">
@@ -104,6 +104,9 @@ function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
               <th>City</th>
               <th>Activities</th>
               <th>Lodging</th>
+              <th>Total Cost of Stay</th>
+              <th>Total Cost of Activities</th>
+              <th>Length of Trip</th>
               <th></th>
               <th></th>
             </tr>
@@ -131,6 +134,9 @@ function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
                     </span>
                   ))}
                 </td>
+                <td>${trip.total_cost_of_stay}</td>
+                <td>${trip.total_activities_cost}</td>
+                <td>{trip.length_of_trip} days</td>
                 <td>
                   <button
                     className="btn btn-primary"
