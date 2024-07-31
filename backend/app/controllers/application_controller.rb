@@ -27,8 +27,20 @@ class ApplicationController < Sinatra::Base
   get "/activities" do
     activities = Activity.includes(:trip).all
     activities.to_json(include: {
-                         trip: { only: %i[title] },
+                         trip: { only: %i[id title] },
                        })
+  end
+
+  post "/activities" do
+    activity = Activity.create(
+      name: params[:name],
+      price: params[:price],
+      date: params[:date],
+      trip_id: params[:trip_id]
+    )
+    activity.to_json(include: {
+                       trip: { only: %i[id title start_date end_date location_id] },
+                     })
   end
 
   get "/lodgings" do

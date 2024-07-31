@@ -24,6 +24,10 @@ function App() {
     setTrips([...trips, trip])
   }
 
+  function onAddNewActivity(activity) {
+    setActivities([...activities, activity])
+  }
+
   function onEditTrip(trip) {
     setTrips([...trips, trip])
   }
@@ -79,7 +83,13 @@ function App() {
             />
             <Route
               path="/activities"
-              element={<ActivitiesPage activities={activities} trips={trips} />}
+              element={
+                <ActivitiesPage
+                  activities={activities}
+                  trips={trips}
+                  onAddNewActivity={onAddNewActivity}
+                />
+              }
             />
           </Routes>
         </Sidebar>
