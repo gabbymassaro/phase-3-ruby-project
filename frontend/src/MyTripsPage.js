@@ -1,9 +1,39 @@
 import React, { useState } from "react"
 import Table from "react-bootstrap/Table"
+import { toDate } from "date-fns-tz"
+import moment from "moment"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import TripForm from "./TripForm"
 
 function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
+  /* I have been trying to fix a bug, this doesn't fix it but it's the most recent thing I've tried.
+     The bug: if I consolelog my formData, the start_date and end_date are correct. The datepicker
+     however, will display the incorrect start_date and end_date. The datepicker is displaying
+     one day behind the respective dates. It's mostly described online as a timezone issue but I haven't
+     been able to solve it. At the moment, it's just a visual problem in this app, not a data issue.
+  */
+  const dateTimeRegex =
+    /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])(T([01][0-9]|2[0-3]):[0-5][0-9](:([0-5][0-9]|60))?(\.[0-9]{1,9})?)?)?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00)?)?)?$/
+
+  function parseDateString(dateString) {
+    if (dateTimeRegex.test(dateString)) {
+      return toDate(dateString)
+    }
+    return new Date(dateString)
+  }
+
+  const handleDateChange = (date, field) => {
+    const parsedDate = parseDateString(date)
+    if (parsedDate) {
+      const utcDate = moment(parsedDate).utc().format("YYYY-MM-DD")
+      setFormData((prevData) => ({
+        ...prevData,
+        [field]: utcDate,
+      }))
+    }
+  }
+  /* end of buggy code */
+
   const [formData, setFormData] = useState({
     location_id: "",
     title: "",
@@ -13,17 +43,27 @@ function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
   const [editMode, setEditMode] = useState(false)
   const [currentTripId, setCurrentTripId] = useState(null)
 
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setFormData((prevData) => ({ ...prevData, [name]: value }))
+  }
+
+  const handleEdit = (trip) => {
+    setFormData({
+      location_id: trip.location_id,
+      title: trip.title,
+      start_date: trip.start_date,
+      end_date: trip.end_date,
+    })
+    setEditMode(true)
+    setCurrentTripId(trip.id)
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
 
     const submitData = {
       ...formData,
-      start_date: formData.start_date
-        ? formData.start_date.toISOString().split("T")[0]
-        : "",
-      end_date: formData.end_date
-        ? formData.end_date.toISOString().split("T")[0]
-        : "",
     }
 
     fetch(`http://localhost:9292/trips/${currentTripId}`, {
@@ -42,32 +82,7 @@ function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
       })
   }
 
-  const handleDateChange = (date, field) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [field]: date,
-    }))
-  }
-
-  const handleChange = (event) => {
-    const { name, value } = event.target
-    setFormData((prevData) => ({ ...prevData, [name]: value }))
-  }
-
-  const handleEdit = (trip) => {
-    setFormData({
-      location_id: trip.location_id,
-      title: trip.title,
-      start_date: trip.start_date,
-      end_date: trip.end_date,
-    })
-    setEditMode(true)
-    setCurrentTripId(trip.id)
-  }
-
   const handleDelete = (id) => {
-    console.log(id)
-
     fetch(`http://localhost:9292/trips/${id}`, {
       method: "DELETE",
     })
@@ -87,6 +102,7 @@ function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
               <th>Start Date</th>
               <th>End Date</th>
               <th>City</th>
+              <th>Activities</th>
               <th>Lodging</th>
               <th></th>
               <th></th>
@@ -99,6 +115,14 @@ function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
                 <td>{trip.start_date}</td>
                 <td>{trip.end_date}</td>
                 <td>{trip.location.city}</td>
+                <td>
+                  {trip.activities.map((activity, idx) => (
+                    <span key={idx}>
+                      {activity.name}
+                      {idx < trip.activities.length - 1 ? ", " : ""}
+                    </span>
+                  ))}
+                </td>
                 <td>
                   {trip.lodgings.map((lodging, idx) => (
                     <span key={idx}>

@@ -4,14 +4,8 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
   get "/trips" do
-    # trips = Trip.includes(:activity, :location, :lodging)
-    # trips.to_json(include: %i[activity location lodging])
     trips = Trip.includes(:activities, :location, :lodgings).all
-    trips.to_json(include: {
-                    activities: { only: %i[id name price date] },
-                    location: { only: %i[id country state city] },
-                    lodgings: { only: %i[id lodging_type name price_per_night check_in check_out] },
-                  })
+    trips.to_json(include: %i[activities location lodgings])
   end
 
   get "/trips/:id" do
@@ -26,21 +20,7 @@ class ApplicationController < Sinatra::Base
 
   get "/activities" do
     activities = Activity.includes(:trip).all
-    activities.to_json(include: {
-                         trip: { only: %i[id title] },
-                       })
-  end
-
-  post "/activities" do
-    activity = Activity.create(
-      name: params[:name],
-      price: params[:price],
-      date: params[:date],
-      trip_id: params[:trip_id]
-    )
-    activity.to_json(include: {
-                       trip: { only: %i[id title start_date end_date location_id] },
-                     })
+    activities.to_json(include: %i[trip])
   end
 
   get "/lodgings" do
@@ -55,11 +35,17 @@ class ApplicationController < Sinatra::Base
       end_date: params[:end_date],
       location_id: params[:location_id]
     )
-    trip.to_json(include: {
-                   location: { only: %i[id country state city] },
-                   activities: { only: %i[id name price date] },
-                   lodgings: { only: %i[id lodging_type name price_per_night check_in check_out] },
-                 })
+    trip.to_json(include: %i[activities location lodgings])
+  end
+
+  post "/activities" do
+    activity = Activity.create(
+      name: params[:name],
+      price: params[:price],
+      date: params[:date],
+      trip_id: params[:trip_id]
+    )
+    activity.to_json(include: %i[trip])
   end
 
   patch "/trips/:id" do
@@ -70,11 +56,7 @@ class ApplicationController < Sinatra::Base
       end_date: params[:end_date],
       location_id: params[:location_id]
     )
-    trips.to_json(include: {
-                    location: { only: %i[id country state city] },
-                    activities: { only: %i[id name price date] },
-                    lodgings: { only: %i[id lodging_type name price_per_night check_in check_out] },
-                  })
+    trips.to_json(include: %i[activities location lodgings])
   end
 
   delete "/trips/:id" do
