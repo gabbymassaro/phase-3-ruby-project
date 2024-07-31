@@ -24,12 +24,25 @@ function App() {
     setTrips([...trips, trip])
   }
 
-  function onAddNewActivity(activity) {
-    setActivities([...activities, activity])
+  function onAddNewActivity(newActivity) {
+    setActivities((prevActivities) => [...prevActivities, newActivity])
+
+    setTrips((prevTrips) =>
+      prevTrips.map((trip) =>
+        trip.id === newActivity.trip_id
+          ? {
+              ...trip,
+              activities: [...trip.activities, newActivity],
+            }
+          : trip
+      )
+    )
   }
 
-  function onEditTrip(trip) {
-    setTrips([...trips, trip])
+  function onEditTrip(updatedTrip) {
+    setTrips((prevTrips) =>
+      prevTrips.map((trip) => (trip.id === updatedTrip.id ? updatedTrip : trip))
+    )
   }
 
   function onDeleteTrip(id) {
@@ -40,15 +53,9 @@ function App() {
     fetch("http://localhost:9292/trips")
       .then((r) => r.json())
       .then((trips) => setTrips(trips))
-  }, [])
-
-  useEffect(() => {
     fetch("http://localhost:9292/locations")
       .then((r) => r.json())
       .then((locations) => setLocations(locations))
-  }, [])
-
-  useEffect(() => {
     fetch("http://localhost:9292/activities")
       .then((r) => r.json())
       .then((activities) => setActivities(activities))
