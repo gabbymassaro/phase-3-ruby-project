@@ -4,13 +4,13 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
   get "/trips" do
-    trips = Trip.includes(:activities, :location, :lodgings).all
-    trips.to_json(include: %i[activities location lodgings])
+    trips = Trip.order_by_start_date.includes(:activities, :location, :lodgings).all
+    trips.to_json(include: %i[activities location lodgings] , methods: [:total_activities_cost, :length_of_trip, :total_cost_of_stay])
   end
 
   get "/trips/:id" do
-    trips = Trip.find(params[:id])
-    trips.to_json
+    trip = Trip.find(params[:id])
+    trip.to_json(include: %i[activities location lodgings])
   end
 
   get "/locations" do
@@ -19,7 +19,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/activities" do
-    activities = Activity.includes(:trip).all
+    activities = Activity.order_by_trip_title
     activities.to_json(include: %i[trip])
   end
 
