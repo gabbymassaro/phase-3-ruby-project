@@ -20,10 +20,9 @@ class Trip < ActiveRecord::Base
       (lodging.check_out.to_date - lodging.check_in.to_date).to_i
     end
 
-    lodging_total = lodgings.sum do |lodging|
+    lodgings.sum do |lodging|
       (lodging_duration * lodging.price_per_night)
     end
 
-    lodging_total
   end
 end

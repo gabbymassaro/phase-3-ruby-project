@@ -61,20 +61,23 @@ Activity.create(name: "Louvre Museum Tour", price: 30.0, date: "2024-10-12", tri
 Activity.create(name: "Seine River Cruise", price: 20.0, date: "2024-10-15", trip_id: trip3.id)
 Activity.create(name: "Wine Tasting", price: 50.0, date: "2024-10-18", trip_id: trip3.id)
 
-Activity.create(name: "Tsukiji Fish Market Tour", price: 45.0, date: "2024-11-02", trip_id: trip4.id)
+Activity.create(name: "Tsukiji Fish Market Tour", price: 45.0, date: "2024-11-02",
+                trip_id: trip4.id)
 Activity.create(name: "Tokyo Tower Visit", price: 20.0, date: "2024-11-04", trip_id: trip4.id)
-Activity.create(name: "Shibuya Crossing Experience", price: 0.0, date: "2024-11-06", trip_id: trip4.id)
+Activity.create(name: "Shibuya Crossing Experience", price: 0.0, date: "2024-11-06",
+                trip_id: trip4.id)
 Activity.create(name: "Sushi Making Class", price: 70.0, date: "2024-11-08", trip_id: trip4.id)
 
 Activity.create(name: "Sydney Opera House Tour", price: 35.0, date: "2024-12-02", trip_id: trip5.id)
 Activity.create(name: "Bondi Beach Day", price: 0.0, date: "2024-12-04", trip_id: trip5.id)
 Activity.create(name: "Blue Mountains Hike", price: 50.0, date: "2024-12-06", trip_id: trip5.id)
-Activity.create(name: "Sydney Harbour Bridge Climb", price: 150.0, date: "2024-12-08", trip_id: trip5.id)
+Activity.create(name: "Sydney Harbour Bridge Climb", price: 150.0, date: "2024-12-08",
+                trip_id: trip5.id)
 
-Activity.create(name: "Christ the Redeemer Visit", price: 30.0, date: "2024-02-11", trip_id: trip6.id)
+Activity.create(name: "Christ the Redeemer Visit", price: 30.0, date: "2024-02-11",
+                trip_id: trip6.id)
 Activity.create(name: "Samba Dance Class", price: 60.0, date: "2024-02-13", trip_id: trip6.id)
 Activity.create(name: "Sugarloaf Mountain Tour", price: 40.0, date: "2024-02-15", trip_id: trip6.id)
 Activity.create(name: "Carnival Parade", price: 100.0, date: "2024-02-18", trip_id: trip6.id)
-
 
 puts "✅ Done seeding!"

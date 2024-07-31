@@ -91,7 +91,7 @@ function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
         onDeleteTrip(id)
       })
   }
-
+  console.log(formData)
   return (
     <>
       <div className="tripstable">
