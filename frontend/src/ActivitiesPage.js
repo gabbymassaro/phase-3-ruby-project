@@ -1,8 +1,14 @@
 import React from "react"
 import Table from "react-bootstrap/Table"
+import Button from "react-bootstrap/Button"
+import Col from "react-bootstrap/Col"
+import Form from "react-bootstrap/Form"
+import Row from "react-bootstrap/Row"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 
-function ActivitiesPage({ activities }) {
+function ActivitiesPage({ activities, trips }) {
   return (
     <>
       <div className="tripstable">
@@ -26,6 +32,44 @@ function ActivitiesPage({ activities }) {
             ))}
           </tbody>
         </Table>
+      </div>
+      <div className="form-container">
+        <Form>
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formGridTrip">
+              <Form.Label>Select Trip: </Form.Label>
+              <Form.Select>
+                <option value="">Trip</option>
+                {trips.map((trip, index) => (
+                  <option value={trip.id} key={index}>
+                    {`${trip.title}`}
+                  </option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+          </Row>
+
+          <Form.Group className="mb-3" controlId="formGridNewActivity">
+            <Form.Label>Enter New Activity: </Form.Label>
+            <Form.Control />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formGridPrice">
+            <Form.Label>Price: </Form.Label>
+            <Form.Control />
+          </Form.Group>
+
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formGridDate">
+              <Form.Label>Date: </Form.Label>
+              <br></br>
+              <DatePicker />
+            </Form.Group>
+          </Row>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
       </div>
     </>
   )

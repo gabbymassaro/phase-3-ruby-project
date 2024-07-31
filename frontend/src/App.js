@@ -79,7 +79,7 @@ function App() {
             />
             <Route
               path="/activities"
-              element={<ActivitiesPage activities={activities} />}
+              element={<ActivitiesPage activities={activities} trips={trips} />}
             />
           </Routes>
         </Sidebar>
