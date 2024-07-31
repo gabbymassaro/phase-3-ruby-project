@@ -83,7 +83,7 @@ function ActivitiesPage({ activities, trips, onAddNewActivity }) {
                 value={formData.trip_id ?? ""}
                 onChange={handleChange}
               >
-                <option value="">Trip</option>
+                <option value="">--</option>
                 {trips.map((trip, index) => (
                   <option value={trip.id} key={index}>
                     {`${trip.title}`}

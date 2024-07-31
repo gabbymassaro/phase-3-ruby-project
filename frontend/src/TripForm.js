@@ -19,13 +19,13 @@ function TripForm({
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridLocation">
-            <Form.Label>Location</Form.Label>
+            <Form.Label>Location:</Form.Label>
             <Form.Select
               name="location_id"
               value={formData.location_id ?? ""}
               onChange={handleChange}
             >
-              <option value="">Location</option>
+              <option value="">--</option>
               {locations.map((location, index) => (
                 <option value={location.id} key={index}>
                   {`${location.country} - ${location.state} - ${location.city}`}
@@ -47,7 +47,8 @@ function TripForm({
 
         <Row className="mb-3">
           <Form.Group as={Col} controlId="formGridStartDate">
-            <Form.Label>Start Date</Form.Label>
+            <Form.Label>Start Date:</Form.Label>
+            <br></br>
             <DatePicker
               selected={formData.start_date}
               onChange={(date) => handleDateChange(date, "start_date")}
@@ -55,7 +56,8 @@ function TripForm({
           </Form.Group>
 
           <Form.Group as={Col} controlId="formGridEndDate">
-            <Form.Label>End Date</Form.Label>
+            <Form.Label>End Date:</Form.Label>
+            <br></br>
             <DatePicker
               selected={formData.end_date}
               onChange={(date) => handleDateChange(date, "end_date")}

@@ -26,7 +26,6 @@ function App() {
 
   function onAddNewActivity(newActivity) {
     setActivities((prevActivities) => [...prevActivities, newActivity])
-
     setTrips((prevTrips) =>
       prevTrips.map((trip) =>
         trip.id === newActivity.trip_id
@@ -42,6 +41,16 @@ function App() {
   function onEditTrip(updatedTrip) {
     setTrips((prevTrips) =>
       prevTrips.map((trip) => (trip.id === updatedTrip.id ? updatedTrip : trip))
+    )
+    setActivities((prevActivities) =>
+      prevActivities.map((activity) =>
+        activity.trip_id === updatedTrip.id
+          ? {
+              ...activity,
+              trip: updatedTrip,
+            }
+          : activity
+      )
     )
   }
 
