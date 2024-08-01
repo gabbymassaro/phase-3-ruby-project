@@ -13,7 +13,7 @@ function App() {
   const [locations, setLocations] = useState([])
   const [activities, setActivities] = useState([])
 
-  function onAddNewTrip(trip) {
+  function onNewTrip(trip) {
     setTrips([...trips, trip])
   }
 
@@ -84,8 +84,9 @@ function App() {
               path="/locations"
               element={
                 <CreateNewTripPage
+                  setTrips={setTrips}
                   locations={locations}
-                  onAddNewTrip={onAddNewTrip}
+                  onAddNewTrip={onNewTrip}
                 />
               }
             />

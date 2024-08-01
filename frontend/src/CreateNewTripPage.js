@@ -14,7 +14,7 @@ const initialValue = {
   location_id: null,
 }
 
-function CreateNewTripPage({ locations, onAddNewTrip }) {
+function CreateNewTripPage({ setTrips, locations, onAddNewTrip }) {
   const [formData, setFormData] = useState(initialValue)
 
   const handleChange = ({ target: { name, value } }) => {
@@ -27,17 +27,20 @@ function CreateNewTripPage({ locations, onAddNewTrip }) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    onAddNewTrip(formData)
+  }
 
+  function onAddNewTrip(newTrip) {
     fetch("http://localhost:9292/trips", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(newTrip),
     })
       .then((response) => response.json())
       .then((trip) => {
-        onAddNewTrip(trip)
+        setTrips(trip)
       })
       .catch((error) => {
         console.error("Error submitting trip:", error)
