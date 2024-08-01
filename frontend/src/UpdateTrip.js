@@ -17,32 +17,23 @@ function UpdateTrip({ setTrips, updateTrip, setFormData, onUpdateTrip }) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    onUpdateTrip(formData)
+  }
 
-    const submitData = {
-      ...formData,
-    }
-
-    fetch(`http://localhost:9292/trips/${updateTrip.id}`, {
+  function onUpdateTrip(updatedTrip) {
+    fetch(`http://localhost:9292/trips/${updatedTrip.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(submitData),
+      body: JSON.stringify(updatedTrip),
     })
       .then((response) => response.json())
-      .then(() => {
-        fetchTrips()
+      .then((sortedTrips) => {
+        setTrips(sortedTrips)
       })
       .catch((error) => {
         console.error("Error updating trip:", error)
-      })
-  }
-
-  const fetchTrips = () => {
-    fetch("http://localhost:9292/trips")
-      .then((response) => response.json())
-      .then((trips) => {
-        setTrips(trips)
       })
   }
 

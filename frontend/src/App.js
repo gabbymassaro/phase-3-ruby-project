@@ -93,6 +93,7 @@ function App() {
               path="/activities"
               element={
                 <ActivitiesPage
+                  setActivities={setActivities}
                   activities={activities}
                   trips={trips}
                   onAddNewActivity={onAddNewActivity}
