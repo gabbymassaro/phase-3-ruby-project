@@ -1,7 +1,7 @@
 import "./App.css"
 import React, { useEffect, useState } from "react"
 import Sidebar from "./Sidebar"
-import Calendar from "./Calendar"
+import Stats from "./Stats"
 import MyTripsPage from "./MyTripsPage"
 import ActivitiesPage from "./ActivitiesPage"
 import CreateNewTripPage from "./CreateNewTripPage"
@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 function App() {
   const [trips, setTrips] = useState([])
   const [locations, setLocations] = useState([])
+  const [lodgings, setLodgings] = useState([])
   const [activities, setActivities] = useState([])
 
   function onNewTrip(trip) {
@@ -61,6 +62,9 @@ function App() {
     fetch("http://localhost:9292/activities")
       .then((r) => r.json())
       .then((activities) => setActivities(activities))
+    fetch("http://localhost:9292/lodgings")
+      .then((r) => r.json())
+      .then((lodgings) => setLodgings(lodgings))
   }, [])
 
   return (
@@ -101,7 +105,7 @@ function App() {
                 />
               }
             />
-            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/stats" element={<Stats lodgings={lodgings} />} />
           </Routes>
         </Sidebar>
       </div>

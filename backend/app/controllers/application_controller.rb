@@ -62,7 +62,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/lodgings" do
-    lodgings = Lodging.all
+    lodgings = Lodging.all.most_frequent_stay
     lodgings.to_json
   end
 
