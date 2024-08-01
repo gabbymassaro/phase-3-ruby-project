@@ -16,13 +16,16 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/trips" do
-    trip = Trip.create(
+    Trip.create(
       title: params[:title],
       start_date: params[:start_date],
       end_date: params[:end_date],
       location_id: params[:location_id]
     )
-    trip.to_json(include: %i[activities location lodgings])
+    trip = Trip.order_by_start_date.includes(:activities, :location, :lodgings).all
+    trip.to_json(include: %i[activities location lodgings],
+                 methods: %i[total_activities_cost length_of_trip
+                             total_cost_of_stay])
   end
 
   patch "/trips/:id" do
@@ -33,7 +36,10 @@ class ApplicationController < Sinatra::Base
       end_date: params[:end_date],
       location_id: params[:location_id]
     )
-    trips.to_json(include: %i[activities location lodgings])
+    trips = Trip.order_by_start_date.includes(:activities, :location, :lodgings)
+    trips.to_json(include: %i[activities location lodgings],
+                  methods: %i[total_activities_cost length_of_trip
+                              total_cost_of_stay])
   end
 
   delete "/trips/:id" do
@@ -43,23 +49,25 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/activities" do
-    activities = Activity.order_by_trip_title
+    activities = Activity.order_by_trip_title.includes(:trip)
     activities.to_json(include: %i[trip])
   end
 
   post "/activities" do
-    activity = Activity.create(
+    Activity.create(
       name: params[:name],
       price: params[:price],
       date: params[:date],
       trip_id: params[:trip_id]
     )
-    activity.to_json(include: %i[trip])
+    activities = Activity.order_by_trip_title.includes(:trip)
+    activities.to_json(include: { trip: { include: %i[location lodgings],
+                                          methods: %i[total_activities_cost], } })
   end
 
   get "/lodgings" do
-    lodgings = Lodging.all
-    lodgings.to_json
+    lodging_data = Lodging.lodging_data
+    lodging_data.to_json
   end
 
   get "/locations" do

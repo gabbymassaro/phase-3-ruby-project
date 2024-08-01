@@ -15,7 +15,12 @@ const initialValue = {
   trip_id: null,
 }
 
-function ActivitiesPage({ activities, trips, onAddNewActivity }) {
+function ActivitiesPage({
+  activities,
+  setActivities,
+  trips,
+  onAddNewActivity,
+}) {
   const [formData, setFormData] = useState(initialValue)
 
   const handleChange = ({ target: { name, value } }) => {
@@ -28,27 +33,26 @@ function ActivitiesPage({ activities, trips, onAddNewActivity }) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    onAddNewActivity(formData)
+  }
 
-    const submitData = {
-      ...formData,
-      date: formData.date ? formData.date.toISOString().split("T")[0] : "",
-    }
-
+  function onAddNewActivity(newActivity) {
     fetch("http://localhost:9292/activities", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(submitData),
+      body: JSON.stringify(newActivity),
     })
       .then((response) => response.json())
-      .then((activity) => {
-        onAddNewActivity(activity)
+      .then((sortedActivity) => {
+        setActivities(sortedActivity)
       })
       .catch((error) => {
-        console.error("Error submitting trip:", error)
+        console.error("Error submitting activity:", error)
       })
   }
+
   return (
     <>
       <div className="tripstable">

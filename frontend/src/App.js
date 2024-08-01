@@ -1,7 +1,7 @@
 import "./App.css"
 import React, { useEffect, useState } from "react"
 import Sidebar from "./Sidebar"
-import Calendar from "./Calendar"
+import Stats from "./Stats"
 import MyTripsPage from "./MyTripsPage"
 import ActivitiesPage from "./ActivitiesPage"
 import CreateNewTripPage from "./CreateNewTripPage"
@@ -11,13 +11,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 function App() {
   const [trips, setTrips] = useState([])
   const [locations, setLocations] = useState([])
+  const [lodgings, setLodgings] = useState([])
   const [activities, setActivities] = useState([])
 
-  function onAddNewTrip(trip) {
+  function onNewTrip(trip) {
     setTrips([...trips, trip])
   }
 
-  function onAddNewActivity(newActivity) {
+  function onNewActivity(newActivity) {
     setActivities((prevActivities) => [...prevActivities, newActivity])
     setTrips((prevTrips) =>
       prevTrips.map((trip) =>
@@ -61,6 +62,9 @@ function App() {
     fetch("http://localhost:9292/activities")
       .then((r) => r.json())
       .then((activities) => setActivities(activities))
+    fetch("http://localhost:9292/lodgings")
+      .then((r) => r.json())
+      .then((lodgings) => setLodgings(lodgings))
   }, [])
 
   return (
@@ -73,6 +77,7 @@ function App() {
               element={
                 <MyTripsPage
                   trips={trips}
+                  setTrips={setTrips}
                   locations={locations}
                   onDeleteTrip={onDeleteTrip}
                   onUpdateTrip={onUpdateTrip}
@@ -83,8 +88,9 @@ function App() {
               path="/locations"
               element={
                 <CreateNewTripPage
+                  setTrips={setTrips}
                   locations={locations}
-                  onAddNewTrip={onAddNewTrip}
+                  onAddNewTrip={onNewTrip}
                 />
               }
             />
@@ -92,13 +98,14 @@ function App() {
               path="/activities"
               element={
                 <ActivitiesPage
+                  setActivities={setActivities}
                   activities={activities}
                   trips={trips}
-                  onAddNewActivity={onAddNewActivity}
+                  onAddNewActivity={onNewActivity}
                 />
               }
             />
-            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/stats" element={<Stats lodgings={lodgings} />} />
           </Routes>
         </Sidebar>
       </div>
