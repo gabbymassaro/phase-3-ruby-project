@@ -8,7 +8,20 @@ function Stats({ lodgings }) {
       name: mostFrequentName,
       stay_count: mostFrequentCount,
     } = {},
+    longest_stay: {
+      name: longestStayName,
+      duration_days: longestDurationDays,
+    } = {},
+    most_expensive_stay: {
+      name: mostExpensiveName,
+      price_per_night: mostExpensivePrice,
+    } = {},
+    least_expensive_stay: {
+      name: leastExpensiveName,
+      price_per_night: leastExpensivePrice,
+    } = {},
   } = lodgings
+
   return (
     <div className="tripstable">
       <Table striped bordered hover size="sm">
@@ -23,11 +36,20 @@ function Stats({ lodgings }) {
         <tbody>
           <tr>
             <td>
-              {mostFrequentName}, {mostFrequentCount} stays
+              <strong>{mostFrequentName}:</strong> {mostFrequentCount} stays
             </td>
-            <td>la</td>
-            <td>la</td>
-            <td>la</td>
+            <td>
+              <strong>{longestStayName}:</strong> {longestDurationDays} days
+            </td>
+            <td>
+              <strong>{mostExpensiveName}:</strong> ${mostExpensivePrice} per
+              night
+            </td>
+            <td>
+              {" "}
+              <strong>{leastExpensiveName}:</strong> ${leastExpensivePrice} per
+              night
+            </td>
           </tr>
         </tbody>
       </Table>
