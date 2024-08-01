@@ -73,6 +73,7 @@ function App() {
               element={
                 <MyTripsPage
                   trips={trips}
+                  setTrips={setTrips}
                   locations={locations}
                   onDeleteTrip={onDeleteTrip}
                   onUpdateTrip={onUpdateTrip}

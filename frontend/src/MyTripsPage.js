@@ -11,7 +11,7 @@ const initialValue = {
   end_date: null,
 }
 
-function MyTripsPage({ trips, onDeleteTrip, onUpdateTrip }) {
+function MyTripsPage({ trips, setTrips, onDeleteTrip, onUpdateTrip }) {
   const [formData, setFormData] = useState(initialValue)
 
   const handleOnClick = (trip) => {
@@ -80,6 +80,7 @@ function MyTripsPage({ trips, onDeleteTrip, onUpdateTrip }) {
         </Table>
       </div>
       <UpdateTrip
+        setTrips={setTrips}
         updateTrip={formData}
         setFormData={setFormData}
         onUpdateTrip={onUpdateTrip}

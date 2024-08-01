@@ -31,7 +31,7 @@ function ActivitiesPage({ activities, trips, onAddNewActivity }) {
 
     const submitData = {
       ...formData,
-      date: formData.date ? formData.date.toISOString().split("T")[0] : "",
+      date: formData.date ? formData.date : "",
     }
 
     fetch("http://localhost:9292/activities", {
@@ -46,7 +46,7 @@ function ActivitiesPage({ activities, trips, onAddNewActivity }) {
         onAddNewActivity(activity)
       })
       .catch((error) => {
-        console.error("Error submitting trip:", error)
+        console.error("Error submitting activity:", error)
       })
   }
   return (

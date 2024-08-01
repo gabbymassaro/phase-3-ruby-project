@@ -22,7 +22,8 @@ class ApplicationController < Sinatra::Base
       end_date: params[:end_date],
       location_id: params[:location_id]
     )
-    trip.to_json(include: %i[activities location lodgings])
+    trip.to_json(include: %i[activities location lodgings], methods: %i[total_activities_cost length_of_trip
+    total_cost_of_stay])
   end
 
   patch "/trips/:id" do
@@ -33,7 +34,8 @@ class ApplicationController < Sinatra::Base
       end_date: params[:end_date],
       location_id: params[:location_id]
     )
-    trips.to_json(include: %i[activities location lodgings])
+    trips.to_json(include: %i[activities location lodgings], methods: %i[total_activities_cost length_of_trip
+    total_cost_of_stay])
   end
 
   delete "/trips/:id" do
