@@ -105,7 +105,16 @@ function App() {
                 />
               }
             />
-            <Route path="/stats" element={<Stats lodgings={lodgings} />} />
+            <Route
+              path="/stats"
+              element={
+                <Stats
+                  lodgings={lodgings}
+                  locations={locations}
+                  trips={trips}
+                />
+              }
+            />
           </Routes>
         </Sidebar>
       </div>

@@ -25,4 +25,13 @@ class Trip < ActiveRecord::Base
     end
 
   end
+
+  # def self.most_frequent_city
+  #   Trip
+  #     .joins(:location)
+  #     .select("locations.*, COUNT(trips.id) as location_count")
+  #     .group("locations.id")
+  #     .order("location_count DESC")
+  #     .first
+  # end
 end
