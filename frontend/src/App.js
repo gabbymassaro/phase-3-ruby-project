@@ -17,7 +17,7 @@ function App() {
     setTrips([...trips, trip])
   }
 
-  function onAddNewActivity(newActivity) {
+  function onNewActivity(newActivity) {
     setActivities((prevActivities) => [...prevActivities, newActivity])
     setTrips((prevTrips) =>
       prevTrips.map((trip) =>
@@ -96,7 +96,7 @@ function App() {
                   setActivities={setActivities}
                   activities={activities}
                   trips={trips}
-                  onAddNewActivity={onAddNewActivity}
+                  onAddNewActivity={onNewActivity}
                 />
               }
             />

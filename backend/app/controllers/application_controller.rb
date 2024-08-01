@@ -50,13 +50,14 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/activities" do
-    activity = Activity.create(
+    activities = Activity.create(
       name: params[:name],
       price: params[:price],
       date: params[:date],
       trip_id: params[:trip_id]
     )
-    activity.to_json(include: %i[trip])
+    activities = Activity.order_by_trip_title
+    activities.to_json(include: %i[trip])
   end
 
   get "/lodgings" do
