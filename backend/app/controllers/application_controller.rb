@@ -46,7 +46,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/activities" do
-    activities = Activity.order_by_trip_title
+    activities = Activity.order_by_trip_title.includes(:trip)
     activities.to_json(include: %i[trip])
   end
 
@@ -57,8 +57,8 @@ class ApplicationController < Sinatra::Base
       date: params[:date],
       trip_id: params[:trip_id]
     )
-    activities = Activity.order_by_trip_title
-    activities.to_json(include: %i[trip])
+    activities = Activity.order_by_trip_title.includes(:trip)
+    activities.to_json(include: { trip: { include: %i[location lodgings], methods: %i[total_activities_cost] } })
   end
 
   get "/lodgings" do
