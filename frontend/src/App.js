@@ -1,24 +1,17 @@
 import "./App.css"
 import React, { useEffect, useState } from "react"
 import Sidebar from "./Sidebar"
+import Calendar from "./Calendar"
 import MyTripsPage from "./MyTripsPage"
 import ActivitiesPage from "./ActivitiesPage"
 import CreateNewTripPage from "./CreateNewTripPage"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
-const initialValue = {
-  title: null,
-  start_date: null,
-  end_date: null,
-  location_id: null,
-}
-
 function App() {
   const [trips, setTrips] = useState([])
   const [locations, setLocations] = useState([])
   const [activities, setActivities] = useState([])
-  const [formData, setFormData] = useState(initialValue)
 
   function onAddNewTrip(trip) {
     setTrips([...trips, trip])
@@ -38,7 +31,7 @@ function App() {
     )
   }
 
-  function onEditTrip(updatedTrip) {
+  function onUpdateTrip(updatedTrip) {
     setTrips((prevTrips) =>
       prevTrips.map((trip) => (trip.id === updatedTrip.id ? updatedTrip : trip))
     )
@@ -81,8 +74,8 @@ function App() {
                 <MyTripsPage
                   trips={trips}
                   locations={locations}
-                  onEditTrip={onEditTrip}
                   onDeleteTrip={onDeleteTrip}
+                  onUpdateTrip={onUpdateTrip}
                 />
               }
             />
@@ -92,8 +85,6 @@ function App() {
                 <CreateNewTripPage
                   locations={locations}
                   onAddNewTrip={onAddNewTrip}
-                  formData={formData}
-                  setFormData={setFormData}
                 />
               }
             />
@@ -107,6 +98,7 @@ function App() {
                 />
               }
             />
+            <Route path="/calendar" element={<Calendar />} />
           </Routes>
         </Sidebar>
       </div>
