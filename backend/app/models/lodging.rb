@@ -1,11 +1,11 @@
 class Lodging < ActiveRecord::Base
   belongs_to :trip
 
-  scope :with_duration, -> {
+  def self.with_duration
     select("lodgings.*, CAST((JULIANDAY(check_out) - JULIANDAY(check_in)) AS INTEGER)
     AS duration_days")
       .order("duration_days DESC")
-  }
+  end
 
   def self.all_lodgings
     Lodging.all
@@ -20,7 +20,7 @@ class Lodging < ActiveRecord::Base
   end
 
   def self.longest_stay
-    Lodging.with_duration.first
+    with_duration.first
   end
 
   def self.most_expensive_stay
