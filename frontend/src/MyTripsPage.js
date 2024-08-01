@@ -1,10 +1,10 @@
 import React, { useState } from "react"
+import DeleteTrip from "./DeleteTrip"
+
 import Table from "react-bootstrap/Table"
 import { toDate } from "date-fns-tz"
 import moment from "moment"
 import "bootstrap-icons/font/bootstrap-icons.css"
-import TripForm from "./TripForm"
-import DeleteTrip from "./DeleteTrip"
 
 function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
   const dateTimeRegex =
@@ -137,14 +137,6 @@ function MyTripsPage({ trips, locations, onEditTrip, onDeleteTrip }) {
           </tbody>
         </Table>
       </div>
-      <TripForm
-        locations={locations}
-        handleSubmit={handleSubmit}
-        handleDateChange={handleDateChange}
-        handleChange={handleChange}
-        formData={formData}
-        exitMode={editMode}
-      />
     </>
   )
 }

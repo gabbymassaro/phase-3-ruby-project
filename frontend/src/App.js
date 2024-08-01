@@ -8,18 +8,10 @@ import CreateNewTripPage from "./CreateNewTripPage"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
-const initialValue = {
-  title: null,
-  start_date: null,
-  end_date: null,
-  location_id: null,
-}
-
 function App() {
   const [trips, setTrips] = useState([])
   const [locations, setLocations] = useState([])
   const [activities, setActivities] = useState([])
-  const [formData, setFormData] = useState(initialValue)
 
   function onAddNewTrip(trip) {
     setTrips([...trips, trip])
@@ -93,8 +85,6 @@ function App() {
                 <CreateNewTripPage
                   locations={locations}
                   onAddNewTrip={onAddNewTrip}
-                  formData={formData}
-                  setFormData={setFormData}
                 />
               }
             />
