@@ -31,7 +31,7 @@ function App() {
     )
   }
 
-  function onEditTrip(updatedTrip) {
+  function onUpdateTrip(updatedTrip) {
     setTrips((prevTrips) =>
       prevTrips.map((trip) => (trip.id === updatedTrip.id ? updatedTrip : trip))
     )
@@ -74,8 +74,8 @@ function App() {
                 <MyTripsPage
                   trips={trips}
                   locations={locations}
-                  onEditTrip={onEditTrip}
                   onDeleteTrip={onDeleteTrip}
+                  onUpdateTrip={onUpdateTrip}
                 />
               }
             />
