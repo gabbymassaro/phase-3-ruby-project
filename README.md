@@ -29,7 +29,7 @@ Welcome to your personal travel planner! This app acts as a simple itinerary for
 
 ## Set Up
 This application requires the use of two ports, you'll need to have two independent terminal sessions. One for 'backend' and one for 'frontend'. Please follow these steps:
-
+- Ruby version needed: 3.0.6
 - Clone this repository `git@github.com:gabbymassaro/phase-3-ruby-project.git`
 #### Backend: 
 
