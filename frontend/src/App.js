@@ -14,10 +14,6 @@ function App() {
   const [lodgings, setLodgings] = useState([])
   const [activities, setActivities] = useState([])
 
-  console.log("trips:", trips)
-  console.log("locations:", locations)
-  console.log("activities:", activities)
-
   function onNewTrip(trip) {
     setTrips([...trips, trip])
   }
@@ -45,6 +41,18 @@ function App() {
       .then((lodgings) => setLodgings(lodgings))
   }, [])
 
+  function fetchTrips() {
+    fetch("http://localhost:9292/trips")
+      .then((r) => r.json())
+      .then((trips) => setTrips(trips))
+  }
+
+  function fetchActivities() {
+    fetch("http://localhost:9292/activities")
+      .then((r) => r.json())
+      .then((activities) => setActivities(activities))
+  }
+
   return (
     <Router>
       <div className="App">
@@ -57,6 +65,7 @@ function App() {
                 <MyTripsPage
                   trips={trips}
                   setTrips={setTrips}
+                  fetchActivities={fetchActivities}
                   onDeleteTrip={onDeleteTrip}
                 />
               }
@@ -75,6 +84,7 @@ function App() {
               path="/activities"
               element={
                 <ActivitiesPage
+                  fetchTrips={fetchTrips}
                   setActivities={setActivities}
                   activities={activities}
                   trips={trips}

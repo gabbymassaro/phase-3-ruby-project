@@ -1,6 +1,6 @@
 import React from "react"
 
-function DeleteTrip({ onDeleteTrip, trip }) {
+function DeleteTrip({ onDeleteTrip, trip, fetchActivities }) {
   const { id } = trip
 
   const handleDelete = () => {
@@ -10,6 +10,7 @@ function DeleteTrip({ onDeleteTrip, trip }) {
       .then((response) => response.json())
       .then(() => {
         onDeleteTrip(id)
+        fetchActivities()
       })
   }
   return (
