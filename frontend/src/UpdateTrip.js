@@ -3,7 +3,7 @@ import { Form, Button, Row, Col } from "react-bootstrap"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 
-function UpdateTrip({ setTrips, updateTrip, setFormData, onUpdateTrip }) {
+function UpdateTrip({ setTrips, updateTrip, setFormData, onSubmit }) {
   var formData = updateTrip
 
   const handleChange = (event) => {
@@ -31,6 +31,7 @@ function UpdateTrip({ setTrips, updateTrip, setFormData, onUpdateTrip }) {
       .then((response) => response.json())
       .then((sortedTrips) => {
         setTrips(sortedTrips)
+        onSubmit()
       })
       .catch((error) => {
         console.error("Error updating trip:", error)
