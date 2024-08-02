@@ -21,16 +21,6 @@ function App() {
 
   function onNewActivity(newActivity) {
     setActivities((prevActivities) => [...prevActivities, newActivity])
-    setTrips((prevTrips) =>
-      prevTrips.map((trip) =>
-        trip.id === newActivity.trip_id
-          ? {
-              ...trip,
-              activities: [...trip.activities, newActivity],
-            }
-          : trip
-      )
-    )
   }
 
   function onDeleteTrip(id) {

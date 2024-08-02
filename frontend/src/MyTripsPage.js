@@ -23,6 +23,7 @@ function MyTripsPage({ trips, setTrips, onDeleteTrip }) {
   }
 
   const handleOnClick = (trip) => {
+    console.log(trip)
     setFormData(trip)
     setShow(true)
   }

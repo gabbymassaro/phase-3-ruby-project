@@ -10,7 +10,9 @@ function UpdateTrip({ setTrips, formData, setFormData, onSubmit }) {
   }
 
   const handleDateChange = (name, date) => {
-    setFormData((prevData) => ({ ...prevData, [name]: date }))
+    const dateObject = new Date(date)
+    const formattedDate = dateObject.toLocaleDateString("en-CA")
+    setFormData((prevData) => ({ ...prevData, [name]: formattedDate }))
   }
 
   const handleSubmit = (event) => {
