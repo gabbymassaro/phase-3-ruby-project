@@ -16,7 +16,6 @@ const Sidebar = ({ children }) => {
       style={{
         display: "flex",
         height: "100vh",
-        overflow: "scroll initial",
       }}
     >
       <CDBSidebar textColor="#fff" backgroundColor="#333">
@@ -49,18 +48,8 @@ const Sidebar = ({ children }) => {
             </Link>
           </CDBSidebarMenu>
         </CDBSidebarContent>
-
-        <CDBSidebarFooter style={{ textAlign: "center" }}>
-          <div
-            style={{
-              padding: "20px 5px",
-            }}
-          >
-            Sidebar Footer
-          </div>
-        </CDBSidebarFooter>
       </CDBSidebar>
-      <div style={{ flex: 1 }}>{children}</div>
+      <div style={{ flex: 1, overflowY: "auto" }}>{children}</div>
     </div>
   )
 }
