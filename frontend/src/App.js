@@ -14,6 +14,11 @@ function App() {
   const [lodgings, setLodgings] = useState([])
   const [activities, setActivities] = useState([])
 
+  // console.log("this is trips:", trips)
+  // console.log("this is locations:", locations)
+  // console.log("this is lodgings:", lodgings)
+  // console.log("this is activities:", activities)
+
   function onNewTrip(trip) {
     setTrips([...trips, trip])
   }

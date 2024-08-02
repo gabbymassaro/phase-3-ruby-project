@@ -12,20 +12,25 @@ location3 = Location.create(country: "France", state: "", city: "Paris")
 location4 = Location.create(country: "Japan", state: "", city: "Tokyo")
 location5 = Location.create(country: "Australia", state: "New South Wales", city: "Sydney")
 location6 = Location.create(country: "Brazil", state: "Rio de Janeiro", city: "Rio de Janeiro")
+location7 = Location.create(country: "Canada", state: "British Columbia", city: "Vancouver")
+location8 = Location.create(country: "Italy", state: "", city: "Rome")
+location9 = Location.create(country: "Spain", state: "", city: "Barcelona")
+location10 = Location.create(country: "Thailand", state: "", city: "Bangkok")
 
 puts "🌱 Seeding trips..."
-trip1 = Trip.create(title: "Beach Vacation", start_date: "2024-08-01", end_date: "2024-08-07",
-                    location_id: location1.id)
-trip2 = Trip.create(title: "City Break", start_date: "2024-09-10", end_date: "2024-09-15",
-                    location_id: location2.id)
-trip3 = Trip.create(title: "European Tour", start_date: "2024-10-05", end_date: "2024-10-20",
-                    location_id: location3.id)
-trip4 = Trip.create(title: "Tokyo Adventure", start_date: "2024-11-01", end_date: "2024-11-10",
-                    location_id: location4.id)
-trip5 = Trip.create(title: "Sydney Exploration", start_date: "2024-12-01", end_date: "2024-12-10",
-                    location_id: location5.id)
-trip6 = Trip.create(title: "Rio Carnival", start_date: "2024-02-10", end_date: "2024-02-20",
-                    location_id: location6.id)
+trip1 = Trip.create(title: "Beach Vacation", start_date: "2024-08-01", end_date: "2024-08-07", location_id: location1.id)
+trip2 = Trip.create(title: "City Break", start_date: "2024-09-10", end_date: "2024-09-15", location_id: location2.id)
+trip3 = Trip.create(title: "European Tour", start_date: "2024-10-05", end_date: "2024-10-20", location_id: location3.id)
+trip4 = Trip.create(title: "Tokyo Adventure", start_date: "2024-11-01", end_date: "2024-11-10", location_id: location4.id)
+trip5 = Trip.create(title: "Sydney Exploration", start_date: "2024-12-01", end_date: "2024-12-10", location_id: location5.id)
+trip6 = Trip.create(title: "Rio Carnival", start_date: "2024-02-10", end_date: "2024-02-20", location_id: location6.id)
+trip7 = Trip.create(title: "Winter in Vancouver", start_date: "2024-12-15", end_date: "2024-12-22", location_id: location7.id)
+trip8 = Trip.create(title: "Roman Holiday", start_date: "2024-11-15", end_date: "2024-11-25", location_id: location8.id)
+trip9 = Trip.create(title: "Barcelona Beaches", start_date: "2024-07-01", end_date: "2024-07-10", location_id: location9.id)
+trip10 = Trip.create(title: "Bangkok Bazaar", start_date: "2024-11-05", end_date: "2024-11-12", location_id: location10.id)
+trip11 = Trip.create(title: "Hollywood Glamour", start_date: "2024-08-15", end_date: "2024-08-20", location_id: location1.id)
+trip12 = Trip.create(title: "Tokyo Tech Tour", start_date: "2024-12-01", end_date: "2024-12-05", location_id: location4.id)
+
 
 puts "🌱 Seeding lodgings..."
 Lodging.create(lodging_type: "Hotel", name: "Beachside Resort", price_per_night: 150.0,
@@ -46,6 +51,19 @@ Lodging.create(lodging_type: "Hotel", name: "Sydney Harbour Hotel", price_per_ni
 Lodging.create(lodging_type: "Hotel", name: "Copacabana Palace", price_per_night: 250.0,
                check_in: "2024-02-10 15:00", check_out: "2024-02-20 11:00",
                trip_id: trip6.id)
+Lodging.create(lodging_type: "Hotel", name: "Beachside Resort", price_per_night: 160.0,
+               check_in: "2024-08-15 15:00", check_out: "2024-08-20 11:00",
+               trip_id: trip11.id)  # Another lodging with the same name
+Lodging.create(lodging_type: "Hotel", name: "Central Hostel", price_per_night: 55.0,
+               check_in: "2024-11-15 15:00", check_out: "2024-11-25 11:00",
+               trip_id: trip8.id)  # Another lodging with the same name
+Lodging.create(lodging_type: "Hostel", name: "Downtown Apartment", price_per_night: 105.0,
+               check_in: "2024-07-01 14:00", check_out: "2024-07-10 12:00",
+               trip_id: trip9.id)  # Another lodging with the same name
+Lodging.create(lodging_type: "Hotel", name: "Shibuya Hotel", price_per_night: 210.0,
+               check_in: "2024-12-01 15:00", check_out: "2024-12-05 11:00",
+               trip_id: trip12.id)  # Another lodging with the same name
+
 
 puts "🌱 Seeding activities..."
 Activity.create(name: "Surfing", price: 60.0, date: "2024-08-03", trip_id: trip1.id)

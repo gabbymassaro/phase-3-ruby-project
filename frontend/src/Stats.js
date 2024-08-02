@@ -22,8 +22,6 @@ function Stats({ lodgings, locations, trips }) {
     } = {},
   } = lodgings
 
-  console.log(trips)
-
   return (
     <>
       <div className="tripstable">
