@@ -1,7 +1,7 @@
 import React from "react"
 import "./App.css"
 
-function Dashboard() {
+function WelcomePage() {
   return (
     <img
       className="travelbuddy"
@@ -11,4 +11,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default WelcomePage

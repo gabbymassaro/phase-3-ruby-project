@@ -31,13 +31,13 @@ const Sidebar = ({ children }) => {
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
             <Link to="/">
-              <CDBSidebarMenuItem>Dashboard</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem>Welcome</CDBSidebarMenuItem>
             </Link>
             <Link to="/locations">
               <CDBSidebarMenuItem>Create New Trip</CDBSidebarMenuItem>
             </Link>
             <Link to="/trips">
-              <CDBSidebarMenuItem>My Travels</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem>My Trips</CDBSidebarMenuItem>
             </Link>
             <Link to="/activities">
               <CDBSidebarMenuItem>Activities</CDBSidebarMenuItem>

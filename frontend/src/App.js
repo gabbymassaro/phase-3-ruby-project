@@ -1,12 +1,13 @@
 import "./App.css"
 import React, { useEffect, useState } from "react"
-import Sidebar from "./Sidebar"
+
 import Stats from "./Stats"
-import Dashboard from "./Dashboard"
+import Sidebar from "./Sidebar"
+import WelcomePage from "./WelcomePage"
 import MyTripsPage from "./MyTripsPage"
 import ActivitiesPage from "./ActivitiesPage"
 import CreateNewTripPage from "./CreateNewTripPage"
-import "bootstrap-icons/font/bootstrap-icons.css"
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 function App() {
@@ -42,18 +43,31 @@ function App() {
       .then((lodgings) => setLodgings(lodgings))
   }, [])
 
+  function fetchTrips() {
+    fetch("http://localhost:9292/trips")
+      .then((r) => r.json())
+      .then((trips) => setTrips(trips))
+  }
+
+  function fetchActivities() {
+    fetch("http://localhost:9292/activities")
+      .then((r) => r.json())
+      .then((activities) => setActivities(activities))
+  }
+
   return (
     <Router>
       <div className="App">
         <Sidebar>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<WelcomePage />} />
             <Route
               path="/trips"
               element={
                 <MyTripsPage
                   trips={trips}
                   setTrips={setTrips}
+                  fetchActivities={fetchActivities}
                   onDeleteTrip={onDeleteTrip}
                 />
               }
@@ -72,6 +86,7 @@ function App() {
               path="/activities"
               element={
                 <ActivitiesPage
+                  fetchTrips={fetchTrips}
                   setActivities={setActivities}
                   activities={activities}
                   trips={trips}

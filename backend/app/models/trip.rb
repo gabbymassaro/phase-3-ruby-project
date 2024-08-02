@@ -24,21 +24,4 @@ class Trip < ActiveRecord::Base
       (lodging_duration * lodging.price_per_night)
     end
   end
-
-  def self.trip_data
-    {
-      total_activities_cost: trip.total_activities_cost,
-      length_of_trip: trip.length_of_trip,
-      total_cost_of_stay: trip.total_cost_of_stay
-    }
-  end
-
-  # def self.most_frequent_city
-  #   Trip
-  #     .joins(:location)
-  #     .select("locations.*, COUNT(trips.id) as location_count")
-  #     .group("locations.id")
-  #     .order("location_count DESC")
-  #     .first
-  # end
 end

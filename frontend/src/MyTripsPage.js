@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+
 import DeleteTrip from "./DeleteTrip"
 import UpdateTrip from "./UpdateTrip"
 
@@ -12,7 +13,7 @@ const initialValue = {
   end_date: null,
 }
 
-function MyTripsPage({ trips, setTrips, onDeleteTrip }) {
+function MyTripsPage({ trips, setTrips, onDeleteTrip, fetchActivities }) {
   const [formData, setFormData] = useState(initialValue)
   const [show, setShow] = useState(false)
 
@@ -23,7 +24,6 @@ function MyTripsPage({ trips, setTrips, onDeleteTrip }) {
   }
 
   const handleOnClick = (trip) => {
-    console.log(trip)
     setFormData(trip)
     setShow(true)
   }
@@ -82,7 +82,11 @@ function MyTripsPage({ trips, setTrips, onDeleteTrip }) {
                   </button>
                 </td>
                 <td>
-                  <DeleteTrip onDeleteTrip={onDeleteTrip} trip={trip} />
+                  <DeleteTrip
+                    onDeleteTrip={onDeleteTrip}
+                    trip={trip}
+                    fetchActivities={fetchActivities}
+                  />
                 </td>
               </tr>
             ))}

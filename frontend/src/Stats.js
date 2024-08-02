@@ -1,8 +1,9 @@
-import React from "react"
-import Table from "react-bootstrap/Table"
-import "bootstrap-icons/font/bootstrap-icons.css"
+import React, { useEffect, useState } from "react"
+import ListGroup from "react-bootstrap/ListGroup"
 
-function Stats({ lodgings, locations, trips }) {
+function Stats({ lodgings }) {
+  const [travelAbroad, setTravelAbroad] = useState([])
+
   const {
     most_frequent_stay: {
       name: mostFrequentName,
@@ -22,61 +23,35 @@ function Stats({ lodgings, locations, trips }) {
     } = {},
   } = lodgings
 
-  return (
-    <>
-      <div className="tripstable">
-        <Table striped bordered hover size="sm">
-          <thead>
-            <tr>
-              <th>Most Frequent Stay</th>
-              <th>Longest Stay</th>
-              <th>Most Expensive Stay</th>
-              <th>Least Expensive Stay</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <strong>{mostFrequentName}:</strong> {mostFrequentCount} stays
-              </td>
-              <td>
-                <strong>{longestStayName}:</strong> {longestDurationDays} days
-              </td>
-              <td>
-                <strong>{mostExpensiveName}:</strong> ${mostExpensivePrice} per
-                night
-              </td>
-              <td>
-                {" "}
-                <strong>{leastExpensiveName}:</strong> ${leastExpensivePrice}{" "}
-                per night
-              </td>
-            </tr>
-          </tbody>
-        </Table>
-      </div>
+  useEffect(() => {
+    fetch("http://localhost:9292/traveled_abroad")
+      .then((r) => r.json())
+      .then((travel) => setTravelAbroad(travel))
+  }, [])
 
-      <div className="tripstable">
-        <Table striped bordered hover size="sm">
-          <thead>
-            <tr>
-              <th>Countries Outside US</th>
-              <th>Most Frequented City</th>
-              <th>Average Trip Time</th>
-              <th>Next Trip</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Outside</td>
-              <td>Frequent City</td>
-              <td>Average</td>
-              <td>Next Trip</td>
-            </tr>
-          </tbody>
-        </Table>
-      </div>
-    </>
+  return (
+    <ListGroup>
+      <ListGroup.Item>
+        <strong>Most Frequent Stay:</strong> {mostFrequentName},{" "}
+        {mostFrequentCount} stays
+      </ListGroup.Item>
+      <ListGroup.Item>
+        <strong>Most Expensive Stay: </strong>
+        {mostExpensiveName}, ${mostExpensivePrice} per night
+      </ListGroup.Item>
+      <ListGroup.Item>
+        <strong>Least Expensive Stay: </strong>
+        {leastExpensiveName}, ${leastExpensivePrice} per night
+      </ListGroup.Item>
+      <ListGroup.Item>
+        <strong>Longest Stay: </strong>
+        {longestStayName}, {longestDurationDays} days
+      </ListGroup.Item>
+      <ListGroup.Item>
+        <strong>Countries Traveled Abroad: </strong>
+        {travelAbroad.toString(" ")}
+      </ListGroup.Item>
+    </ListGroup>
   )
 }
 
