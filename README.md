@@ -44,5 +44,9 @@ This application requires the use of two ports, you'll need to have two independ
 - Run `npm install`
 - Run `npm start`
 
+### DB Diagram:
+![db_diagram](https://github.com/user-attachments/assets/b71354b3-d899-442d-9228-e3ef126135b3)
+
+
 ## Credits
 - This app was created by Gabriella Massaro.
