@@ -2,6 +2,7 @@ import "./App.css"
 import React, { useEffect, useState } from "react"
 import Sidebar from "./Sidebar"
 import Stats from "./Stats"
+import Dashboard from "./Dashboard"
 import MyTripsPage from "./MyTripsPage"
 import ActivitiesPage from "./ActivitiesPage"
 import CreateNewTripPage from "./CreateNewTripPage"
@@ -13,11 +14,6 @@ function App() {
   const [locations, setLocations] = useState([])
   const [lodgings, setLodgings] = useState([])
   const [activities, setActivities] = useState([])
-
-  // console.log("this is trips:", trips)
-  // console.log("this is locations:", locations)
-  // console.log("this is lodgings:", lodgings)
-  // console.log("this is activities:", activities)
 
   function onNewTrip(trip) {
     setTrips([...trips, trip])
@@ -77,6 +73,7 @@ function App() {
       <div className="App">
         <Sidebar>
           <Routes>
+            <Route path="/" element={<Dashboard />} />
             <Route
               path="/trips"
               element={

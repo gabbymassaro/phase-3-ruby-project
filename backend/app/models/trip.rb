@@ -23,7 +23,14 @@ class Trip < ActiveRecord::Base
     lodgings.sum do |lodging|
       (lodging_duration * lodging.price_per_night)
     end
+  end
 
+  def self.trip_data
+    {
+      total_activities_cost: trip.total_activities_cost,
+      length_of_trip: trip.length_of_trip,
+      total_cost_of_stay: trip.total_cost_of_stay
+    }
   end
 
   # def self.most_frequent_city
