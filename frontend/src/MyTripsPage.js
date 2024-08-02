@@ -26,6 +26,7 @@ function MyTripsPage({ trips, setTrips, onDeleteTrip }) {
     setFormData(trip)
     setShow(true)
   }
+
   return (
     <>
       <div className="tripstable">
@@ -94,7 +95,7 @@ function MyTripsPage({ trips, setTrips, onDeleteTrip }) {
         <Modal.Body>
           <UpdateTrip
             setTrips={setTrips}
-            updateTrip={formData}
+            formData={formData}
             setFormData={setFormData}
             onSubmit={onModalSubmit}
           />

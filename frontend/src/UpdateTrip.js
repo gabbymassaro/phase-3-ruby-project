@@ -3,9 +3,7 @@ import { Form, Button, Row, Col } from "react-bootstrap"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 
-function UpdateTrip({ setTrips, updateTrip, setFormData, onSubmit }) {
-  var formData = updateTrip
-
+function UpdateTrip({ setTrips, formData, setFormData, onSubmit }) {
   const handleChange = (event) => {
     const { name, value } = event.target
     setFormData((prevData) => ({ ...prevData, [name]: value }))

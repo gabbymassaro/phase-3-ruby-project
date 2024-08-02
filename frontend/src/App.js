@@ -33,22 +33,6 @@ function App() {
     )
   }
 
-  function onUpdateTrip(updatedTrip) {
-    setTrips((prevTrips) =>
-      prevTrips.map((trip) => (trip.id === updatedTrip.id ? updatedTrip : trip))
-    )
-    setActivities((prevActivities) =>
-      prevActivities.map((activity) =>
-        activity.trip_id === updatedTrip.id
-          ? {
-              ...activity,
-              trip: updatedTrip,
-            }
-          : activity
-      )
-    )
-  }
-
   function onDeleteTrip(id) {
     setTrips(trips.filter((trip) => trip.id !== id))
   }
@@ -80,9 +64,7 @@ function App() {
                 <MyTripsPage
                   trips={trips}
                   setTrips={setTrips}
-                  locations={locations}
                   onDeleteTrip={onDeleteTrip}
-                  onUpdateTrip={onUpdateTrip}
                 />
               }
             />
