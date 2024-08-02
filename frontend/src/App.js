@@ -2,11 +2,10 @@ import "./App.css"
 import React, { useEffect, useState } from "react"
 import Sidebar from "./Sidebar"
 import Stats from "./Stats"
-import Dashboard from "./Dashboard"
+import WelcomePage from "./WelcomePage"
 import MyTripsPage from "./MyTripsPage"
 import ActivitiesPage from "./ActivitiesPage"
 import CreateNewTripPage from "./CreateNewTripPage"
-import "bootstrap-icons/font/bootstrap-icons.css"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 function App() {
@@ -14,6 +13,10 @@ function App() {
   const [locations, setLocations] = useState([])
   const [lodgings, setLodgings] = useState([])
   const [activities, setActivities] = useState([])
+
+  console.log("trips:", trips)
+  console.log("locations:", locations)
+  console.log("activities:", activities)
 
   function onNewTrip(trip) {
     setTrips([...trips, trip])
@@ -47,7 +50,7 @@ function App() {
       <div className="App">
         <Sidebar>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<WelcomePage />} />
             <Route
               path="/trips"
               element={

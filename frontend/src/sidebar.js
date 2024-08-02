@@ -31,7 +31,7 @@ const Sidebar = ({ children }) => {
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
             <Link to="/">
-              <CDBSidebarMenuItem>Dashboard</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem>Welcome</CDBSidebarMenuItem>
             </Link>
             <Link to="/locations">
               <CDBSidebarMenuItem>Create New Trip</CDBSidebarMenuItem>

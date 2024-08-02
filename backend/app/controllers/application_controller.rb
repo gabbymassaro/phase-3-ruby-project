@@ -71,7 +71,12 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/locations" do
-    locations = Location.all
-    locations.to_json
+    location_data = Location.all
+    location_data.to_json
+  end
+
+  get "/traveled_abroad" do
+    abroad = Location.traveled_abroad
+    abroad.to_json
   end
 end
