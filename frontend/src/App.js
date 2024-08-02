@@ -1,11 +1,13 @@
 import "./App.css"
 import React, { useEffect, useState } from "react"
-import Sidebar from "./Sidebar"
+
 import Stats from "./Stats"
+import Sidebar from "./Sidebar"
 import WelcomePage from "./WelcomePage"
 import MyTripsPage from "./MyTripsPage"
 import ActivitiesPage from "./ActivitiesPage"
 import CreateNewTripPage from "./CreateNewTripPage"
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 function App() {

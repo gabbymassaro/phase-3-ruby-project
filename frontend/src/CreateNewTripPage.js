@@ -17,6 +17,8 @@ const initialValue = {
 function CreateNewTripPage({ setTrips, locations, onAddNewTrip }) {
   const [formData, setFormData] = useState(initialValue)
 
+  const resetForm = () => setFormData(initialValue)
+
   const handleChange = ({ target: { name, value } }) => {
     setFormData({ ...formData, [name]: value })
   }
@@ -42,6 +44,7 @@ function CreateNewTripPage({ setTrips, locations, onAddNewTrip }) {
       .then((trip) => {
         setTrips(trip)
       })
+      .then(resetForm)
       .catch((error) => {
         console.error("Error submitting trip:", error)
       })

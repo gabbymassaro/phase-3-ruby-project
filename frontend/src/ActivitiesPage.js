@@ -23,6 +23,7 @@ function ActivitiesPage({
   fetchTrips,
 }) {
   const [formData, setFormData] = useState(initialValue)
+  const resetForm = () => setFormData(initialValue)
 
   const handleChange = ({ target: { name, value } }) => {
     setFormData({ ...formData, [name]: value })
@@ -52,6 +53,7 @@ function ActivitiesPage({
         setActivities(sortedActivity)
         fetchTrips()
       })
+      .then(resetForm)
       .catch((error) => {
         console.error("Error submitting activity:", error)
       })
