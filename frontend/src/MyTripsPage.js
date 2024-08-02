@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import DeleteTrip from "./DeleteTrip"
 import UpdateTrip from "./UpdateTrip"
 
+import Modal from "react-bootstrap/Modal"
 import Table from "react-bootstrap/Table"
 import "bootstrap-icons/font/bootstrap-icons.css"
 
@@ -11,11 +12,20 @@ const initialValue = {
   end_date: null,
 }
 
-function MyTripsPage({ trips, setTrips, onDeleteTrip, onUpdateTrip }) {
+function MyTripsPage({ trips, setTrips, onDeleteTrip }) {
   const [formData, setFormData] = useState(initialValue)
+  const [show, setShow] = useState(false)
+
+  const handleClose = () => setShow(false)
+
+  const onModalSubmit = () => {
+    setShow(false)
+  }
 
   const handleOnClick = (trip) => {
+    console.log(trip)
     setFormData(trip)
+    setShow(true)
   }
 
   return (
@@ -79,12 +89,19 @@ function MyTripsPage({ trips, setTrips, onDeleteTrip, onUpdateTrip }) {
           </tbody>
         </Table>
       </div>
-      <UpdateTrip
-        setTrips={setTrips}
-        updateTrip={formData}
-        setFormData={setFormData}
-        onUpdateTrip={onUpdateTrip}
-      />
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Trip</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <UpdateTrip
+            setTrips={setTrips}
+            formData={formData}
+            setFormData={setFormData}
+            onSubmit={onModalSubmit}
+          />
+        </Modal.Body>
+      </Modal>
     </>
   )
 }

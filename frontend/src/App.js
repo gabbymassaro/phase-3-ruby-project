@@ -2,6 +2,7 @@ import "./App.css"
 import React, { useEffect, useState } from "react"
 import Sidebar from "./Sidebar"
 import Stats from "./Stats"
+import Dashboard from "./Dashboard"
 import MyTripsPage from "./MyTripsPage"
 import ActivitiesPage from "./ActivitiesPage"
 import CreateNewTripPage from "./CreateNewTripPage"
@@ -20,32 +21,6 @@ function App() {
 
   function onNewActivity(newActivity) {
     setActivities((prevActivities) => [...prevActivities, newActivity])
-    setTrips((prevTrips) =>
-      prevTrips.map((trip) =>
-        trip.id === newActivity.trip_id
-          ? {
-              ...trip,
-              activities: [...trip.activities, newActivity],
-            }
-          : trip
-      )
-    )
-  }
-
-  function onUpdateTrip(updatedTrip) {
-    setTrips((prevTrips) =>
-      prevTrips.map((trip) => (trip.id === updatedTrip.id ? updatedTrip : trip))
-    )
-    setActivities((prevActivities) =>
-      prevActivities.map((activity) =>
-        activity.trip_id === updatedTrip.id
-          ? {
-              ...activity,
-              trip: updatedTrip,
-            }
-          : activity
-      )
-    )
   }
 
   function onDeleteTrip(id) {
@@ -72,15 +47,14 @@ function App() {
       <div className="App">
         <Sidebar>
           <Routes>
+            <Route path="/" element={<Dashboard />} />
             <Route
               path="/trips"
               element={
                 <MyTripsPage
                   trips={trips}
                   setTrips={setTrips}
-                  locations={locations}
                   onDeleteTrip={onDeleteTrip}
-                  onUpdateTrip={onUpdateTrip}
                 />
               }
             />
@@ -105,7 +79,16 @@ function App() {
                 />
               }
             />
-            <Route path="/stats" element={<Stats lodgings={lodgings} />} />
+            <Route
+              path="/stats"
+              element={
+                <Stats
+                  lodgings={lodgings}
+                  locations={locations}
+                  trips={trips}
+                />
+              }
+            />
           </Routes>
         </Sidebar>
       </div>

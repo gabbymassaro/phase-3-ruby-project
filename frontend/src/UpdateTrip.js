@@ -3,16 +3,16 @@ import { Form, Button, Row, Col } from "react-bootstrap"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 
-function UpdateTrip({ setTrips, updateTrip, setFormData, onUpdateTrip }) {
-  var formData = updateTrip
-
+function UpdateTrip({ setTrips, formData, setFormData, onSubmit }) {
   const handleChange = (event) => {
     const { name, value } = event.target
     setFormData((prevData) => ({ ...prevData, [name]: value }))
   }
 
   const handleDateChange = (name, date) => {
-    setFormData((prevData) => ({ ...prevData, [name]: date }))
+    const dateObject = new Date(date)
+    const formattedDate = dateObject.toLocaleDateString("en-CA")
+    setFormData((prevData) => ({ ...prevData, [name]: formattedDate }))
   }
 
   const handleSubmit = (event) => {
@@ -31,6 +31,7 @@ function UpdateTrip({ setTrips, updateTrip, setFormData, onUpdateTrip }) {
       .then((response) => response.json())
       .then((sortedTrips) => {
         setTrips(sortedTrips)
+        onSubmit()
       })
       .catch((error) => {
         console.error("Error updating trip:", error)

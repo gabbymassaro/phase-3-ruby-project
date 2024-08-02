@@ -28,7 +28,9 @@ function ActivitiesPage({
   }
 
   const handleDateChange = (date, name) => {
-    setFormData({ ...formData, [name]: date })
+    const dateObject = new Date(date)
+    const formattedDate = dateObject.toLocaleDateString("en-CA")
+    setFormData({ ...formData, [name]: formattedDate })
   }
 
   const handleSubmit = (event) => {

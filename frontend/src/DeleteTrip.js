@@ -1,7 +1,9 @@
 import React from "react"
 
 function DeleteTrip({ onDeleteTrip, trip }) {
-  const handleDelete = (id) => {
+  const { id } = trip
+
+  const handleDelete = () => {
     fetch(`http://localhost:9292/trips/${id}`, {
       method: "DELETE",
     })
@@ -11,7 +13,7 @@ function DeleteTrip({ onDeleteTrip, trip }) {
       })
   }
   return (
-    <button className="btn btn-danger" onClick={() => handleDelete(trip.id)}>
+    <button className="btn btn-danger" onClick={handleDelete}>
       Remove
     </button>
   )
