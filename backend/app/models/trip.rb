@@ -3,9 +3,10 @@ class Trip < ActiveRecord::Base
   has_many :activities, dependent: :destroy
   has_many :lodgings, dependent: :destroy
 
-  def self.order_by_start_date
-    Trip.order(start_date: :asc)
-  end
+  scope :order_by_start_date, ->{ order(start_date: :asc) }
+  # def self.order_by_start_date
+  #   order(start_date: :asc)
+  # end
 
   def total_activities_cost
     activities.sum(:price)
