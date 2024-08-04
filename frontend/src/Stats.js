@@ -9,10 +9,7 @@ function Stats({ lodgings }) {
       name: mostFrequentName,
       stay_count: mostFrequentCount,
     } = {},
-    longest_stay: {
-      name: longestStayName,
-      duration_days: longestDurationDays,
-    } = {},
+    longest_stay: { 0: longestStayName, 1: longestDurationDays } = {},
     most_expensive_stay: {
       name: mostExpensiveName,
       price_per_night: mostExpensivePrice,

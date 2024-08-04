@@ -2,14 +2,11 @@ class Lodging < ActiveRecord::Base
   belongs_to :trip
 
   class << self
-    def with_duration
-      select("lodgings.*, CAST((JULIANDAY(check_out) - JULIANDAY(check_in)) AS INTEGER)
-      AS duration_days")
-        .order(duration_days: :desc)
-    end
-
     def longest_stay
-      with_duration.first
+      lodges = Lodging.select(:name, :check_in, :check_out).map do |c|
+        [c.name, (c.check_out.to_time.to_i / 86_400) - (c.check_in.to_time.to_i / 86_400)]
+      end
+      lodges.max_by { |_, b| b }
     end
 
     def all_lodgings
@@ -39,9 +36,10 @@ class Lodging < ActiveRecord::Base
       {
         all_lodgings: all_lodgings,
         most_frequent_stay: most_frequent_stay,
+        # with_duration: with_duration,
         longest_stay: longest_stay,
         most_expensive_stay: most_expensive_stay,
-        least_expensive_stay: least_expensive_stay,
+        least_expensive_stay: least_expensive_stay
       }
     end
   end
