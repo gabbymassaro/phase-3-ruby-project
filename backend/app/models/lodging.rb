@@ -1,3 +1,5 @@
+# require 'pry'
+
 class Lodging < ActiveRecord::Base
   belongs_to :trip
 
@@ -21,22 +23,25 @@ class Lodging < ActiveRecord::Base
     end
 
     def most_expensive_stay
-      select(:price_per_night, :name)
-        .order(price_per_night: :desc)
-        .first
+      lodges = Lodging.select(:price_per_night, :name).map do |p|
+        [p.price_per_night, p.name]
+      end
+
+      lodges.max_by { |a, _| a }
     end
 
     def least_expensive_stay
-      select(:price_per_night, :price_per_night, :name)
-        .order(:price_per_night, :asc)
-        .first
+      lodges = Lodging.select(:price_per_night, :name).map do |p|
+        [p.price_per_night, p.name]
+      end
+
+      lodges.min_by { |a, _| a }
     end
 
     def lodging_data
       {
         all_lodgings: all_lodgings,
         most_frequent_stay: most_frequent_stay,
-        # with_duration: with_duration,
         longest_stay: longest_stay,
         most_expensive_stay: most_expensive_stay,
         least_expensive_stay: least_expensive_stay
@@ -44,3 +49,5 @@ class Lodging < ActiveRecord::Base
     end
   end
 end
+
+# binding.pry
