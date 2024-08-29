@@ -1,49 +1,53 @@
+# require 'pry'
+
 class Lodging < ActiveRecord::Base
   belongs_to :trip
 
-  def self.with_duration
-    select("lodgings.*, CAST((JULIANDAY(check_out) - JULIANDAY(check_in)) AS INTEGER)
-    AS duration_days")
-      .order("duration_days DESC")
-  end
+  class << self
+    def longest_stay
+      lodges = Lodging.select(:name, :check_in, :check_out).map do |c|
+        [c.name, (c.check_out.to_time.to_i / 86_400) - (c.check_in.to_time.to_i / 86_400)]
+      end
+      lodges.max_by { |_, b| b }
+    end
 
-  def self.all_lodgings
-    Lodging.all
-  end
+    def all_lodgings
+      all
+    end
 
-  def self.most_frequent_stay
-    Lodging
-      .select("name, COUNT(*) as stay_count")
-      .group(:name)
-      .order("stay_count DESC")
-      .first
-  end
+    def most_frequent_stay
+      select("name, COUNT(*) as stay_count")
+        .group(:name)
+        .order("stay_count DESC")
+        .first
+    end
 
-  def self.longest_stay
-    with_duration.first
-  end
+    def most_expensive_stay
+      lodges = Lodging.select(:price_per_night, :name).map do |p|
+        [p.price_per_night, p.name]
+      end
 
-  def self.most_expensive_stay
-    Lodging
-      .select("price_per_night, name")
-      .order("price_per_night DESC")
-      .first
-  end
+      lodges.max_by { |a, _| a }
+    end
 
-  def self.least_expensive_stay
-    Lodging
-      .select("price_per_night, name")
-      .order("price_per_night ASC")
-      .first
-  end
+    def least_expensive_stay
+      lodges = Lodging.select(:price_per_night, :name).map do |p|
+        [p.price_per_night, p.name]
+      end
 
-  def self.lodging_data
-    {
-      all_lodgings: all_lodgings,
-      most_frequent_stay: most_frequent_stay,
-      longest_stay: longest_stay,
-      most_expensive_stay: most_expensive_stay,
-      least_expensive_stay: least_expensive_stay,
-    }
+      lodges.min_by { |a, _| a }
+    end
+
+    def lodging_data
+      {
+        all_lodgings: all_lodgings,
+        most_frequent_stay: most_frequent_stay,
+        longest_stay: longest_stay,
+        most_expensive_stay: most_expensive_stay,
+        least_expensive_stay: least_expensive_stay
+      }
+    end
   end
 end
+
+# binding.pry
